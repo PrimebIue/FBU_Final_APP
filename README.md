@@ -81,7 +81,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/Wireframe_CryptoHub.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
