@@ -16,7 +16,7 @@ IceBreaker is an app that allows you to connect with people that you are meeting
 The app allows you to log in with your Facebook account and generates a QR code to your profile which allows the people you meet to simply scan it and see what things you have in common.
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
+
 - **Category:** Social
 - **Mobile:** Mobile only experience, the app saves your profile settings and allows you to log in with your Facebook account. It uses the camera.
 - **Story:** Allows users to break the ice with people they just met by checking if they have anything in common.
@@ -30,21 +30,21 @@ The app allows you to log in with your Facebook account and generates a QR code 
 
 **Required Must-have Stories**
 
-* The user can log-in with their Facebook account
-* The user can input their hobbies/interests into a list (Recycler View)
-* User's inputs are saved between sesions.
-* The app can generate a QR code that links to the User's profile that another user with the app can scan.
-* After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the similarities
-* The app allows you to add the other person as a friend in Facebook through the app.
-* When looking at other user's hobbies/interests, the app allows you to double tap to add them to your list.
+[ ] The user can log-in with their Facebook account
+[ ] The user can input their hobbies/interests into a list (Recycler View)
+[ ] User's inputs are saved between sesions.
+[ ] The app can generate a QR code that links to the User's profile that another user with the app can scan.
+[ ] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the similarities
+[ ] The app allows you to add the other person as a friend in Facebook through the app.
+[ ] When looking at other user's hobbies/interests, the app allows you to double tap to add them to your list.
 
 **Optional Nice-to-have Stories**
 
-* After checking for similarities, the app gives you conversation prompts.
-* The app allows you to access Facebook messenger. (Maybe)
-* The app allows you to create private hobbies/interests that are only displayed if the other person has the same hobby/interest
-* The app allows you to see a Timeline of your friends and see if anyone has added a new interest/hobby, if they recently added a friend, and Facebook posts from your friends related to any of your hobbies/interests.
-* User can add additional information to their hobbies/interests.
+[ ] After checking for similarities, the app gives you conversation prompts.
+[ ] The app allows you to access Facebook messenger. (Maybe)
+[ ] The app allows you to create private hobbies/interests that are only displayed if the other person has the same hobby/interest
+[ ] The app allows you to see a Timeline of your friends and see if anyone has added a new interest/hobby, if they recently added a friend, and Facebook posts from your friends related to any of your hobbies/interests.
+[ ] User can add additional information to their hobbies/interests.
 
 
 
