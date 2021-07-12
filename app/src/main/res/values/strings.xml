@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">IceBreaker</string>
+    <string name="facebook_app_id">786995148631562</string>
+    <string name="fb_login_protocol_scheme">fb786995148631562</string>
+
 </resources>
