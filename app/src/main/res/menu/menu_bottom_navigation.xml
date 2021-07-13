@@ -4,13 +4,13 @@
     >
 
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/action_hobbies"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="Home"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_compose"
+        android:id="@+id/action_icebreak"
 
         android:icon="@android:drawable/ic_menu_view"
         android:title="Compose"
