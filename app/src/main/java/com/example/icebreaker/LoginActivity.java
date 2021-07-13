@@ -1,48 +1,29 @@
 package com.example.icebreaker;
 
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
 import com.parse.facebook.ParseFacebookUtils;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-import com.facebook.AccessToken;
+
 import com.facebook.GraphRequest;
 import com.parse.ParseUser;
-import com.parse.facebook.ParseFacebookUtils;
+
 import org.json.JSONException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import static com.facebook.share.model.AppInviteContent.Builder.Destination.FACEBOOK;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,8 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final Button btnLoginFB = findViewById(R.id.btnLoginFB);
+        final EditText etUsername = findViewById(R.id.etUsername);
+        final EditText etPassword = findViewById(R.id.etPassword);
+        final Button btnLogin = findViewById(R.id.btnLogin);
+        final Button btnRegister = findViewById(R.id.btnRegister);
 
-        // Login
+        // Login with Facebook
         btnLoginFB.setOnClickListener(v -> {
             final ProgressDialog dialog = new ProgressDialog(this);
             dialog.setTitle("Please, wait a moment.");
@@ -81,8 +66,54 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick login button");
+                String email = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                loginUser(email, password);
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick Register button");
+                goSignUpActivity();
+            }
+        });
     }
 
+
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to login user with email: " + username);
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with login", e);
+                    Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                goMainActivity();
+                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void goSignUpActivity() {
+        // TODO-Create signup activity
+        Intent i = new Intent(this, SignUpActivity.class);
+        startActivity(i);
+    }
 
     private void getUserDetailFromFB() {
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
