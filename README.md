@@ -31,7 +31,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 **Required Must-have Stories**
 
 
-* [ ] The user can log-in with their Facebook account
+* [x] The user can log-in with their Facebook account
 * [ ] The user can navigate the app using Bottom navigation.
 * [ ] The app can generate a QR code that links to the User's profile that another user with the app can scan.
 * [ ] User can import their Hobbies from their Facebook profile.
