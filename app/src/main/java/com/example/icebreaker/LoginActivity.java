@@ -42,18 +42,16 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static com.facebook.share.model.AppInviteContent.Builder.Destination.FACEBOOK;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
-
-    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        callbackManager = CallbackManager.Factory.create();
 
         final Button btnLoginFB = findViewById(R.id.btnLoginFB);
 
@@ -127,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }
