@@ -8,7 +8,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IceBreaker">
+        android:theme="@style/Theme.IceBreaker"
+        android:name=".ParseApplication">
+
+        <!--Back4App setup-->
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="@string/back4app_server_url" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/back4app_app_id" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/back4app_client_key" />
+
         <activity android:name=".LoginActivity" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +33,11 @@
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider786995148631562 "
+            android:exported="true" />
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
@@ -38,6 +56,7 @@
 
     </application>
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

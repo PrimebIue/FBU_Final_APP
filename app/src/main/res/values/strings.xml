@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">IceBreaker</string>
+
+    <!--Facebook-->
     <string name="facebook_app_id">786995148631562</string>
     <string name="fb_login_protocol_scheme">fb786995148631562</string>
 
+    <!-- Back4App -->
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">QmEOPLDILJPXEuEzTJTzsmusgV7n6pXbbePsMglg</string>
+    <string name="back4app_client_key">AFmwyK0BnLjhjw0qHncPd5V3OhnM6ickBpqweaQC</string>
 </resources>
