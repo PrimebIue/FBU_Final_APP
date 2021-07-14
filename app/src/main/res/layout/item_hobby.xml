@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -17,6 +17,7 @@
         android:layout_marginTop="10dp">
 
         <androidx.emoji.widget.EmojiTextView
+            android:id="@+id/tvEmoji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -28,7 +29,7 @@
 
 
         <TextView
-            android:id="@+id/tvSearchCaption"
+            android:id="@+id/tvHobbyName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
