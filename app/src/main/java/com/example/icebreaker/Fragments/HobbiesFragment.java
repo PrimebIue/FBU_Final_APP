@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.icebreaker.HobbiesAdapter;
 import com.example.icebreaker.R;
 import com.example.icebreaker.Subclasses.Hobby;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -51,6 +55,7 @@ public class HobbiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         
         final RecyclerView rvHobbies = view.findViewById(R.id.rvHobbies);
+        final FloatingActionButton btnAddHobby = view.findViewById(R.id.btnAddHobby);
         
         // Initialize the array
         allHobbies = new ArrayList<>();
@@ -62,8 +67,22 @@ public class HobbiesFragment extends Fragment {
         // Create layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvHobbies.setLayoutManager(linearLayoutManager);
+
+        // Click listener for adding hobbies
+        btnAddHobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addHobbyDialog();
+            }
+        });
         
         queryHobbies();
+    }
+
+    private void addHobbyDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        AddHobbyFragment addHobbyFragment = AddHobbyFragment.newInstance("Some Title");
+        addHobbyFragment.show(fragmentManager, "fragment_add_hobby");
     }
 
     private void queryHobbies() {
