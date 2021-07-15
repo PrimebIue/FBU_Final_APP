@@ -26,8 +26,7 @@
             android:textColor="@color/white"
             android:textSize="20dp"
             android:layout_marginLeft="5dp" />
-
-
+        
         <TextView
             android:id="@+id/tvHobbyName"
             android:layout_width="fill_parent"
@@ -39,7 +38,5 @@
             android:textColor="@color/white"
             android:text="Test Hobby name" />
     </LinearLayout>
-
-
 
 </RelativeLayout>
