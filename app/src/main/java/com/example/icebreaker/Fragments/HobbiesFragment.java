@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,11 @@ import android.view.ViewGroup;
 import com.example.icebreaker.HobbiesAdapter;
 import com.example.icebreaker.R;
 import com.example.icebreaker.Subclasses.Hobby;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +67,25 @@ public class HobbiesFragment extends Fragment {
     }
 
     private void queryHobbies() {
+
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        // TODO--Create proper relation on Back4App to query correctly
+        query.include("usersWithHobby");
+        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
