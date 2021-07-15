@@ -3,19 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AddHobbyFragment">
+    tools:context=".Fragments.AddHobbyFragment"
+    android:background="@color/gray_500">
 
     <TextView
-        android:id="@+id/lbl_your_name"
-        android:text="Your name"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Add new Hobby!"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="28dp"/>
 
     <EditText
-        android:id="@+id/txt_your_name"
+        android:id="@+id/etEmoji"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_input"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:hint="Icon"
+        android:layout_marginLeft="20dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp" />
+
+    <EditText
+        android:id="@+id/etHobbyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/etEmoji"
+        android:layout_toRightOf="@+id/etEmoji"
+        android:background="@drawable/custom_input"
+        android:hint="Hobby name"
+        android:imeOptions="actionDone"
         android:inputType="text"
-        android:imeOptions="actionDone" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_marginBottom="10dp"/>
+
 
 </RelativeLayout>

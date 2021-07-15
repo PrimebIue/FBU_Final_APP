@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.icebreaker.HobbiesAdapter;
 import com.example.icebreaker.R;
@@ -73,6 +71,7 @@ public class HobbiesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addHobbyDialog();
+                queryHobbies();
             }
         });
         
@@ -98,6 +97,7 @@ public class HobbiesFragment extends Fragment {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting hobbies.", e);
                 }
+                
                 for (Hobby hobby : hobbies) {
                     Log.i(TAG, "Hobby: " + hobby.getName());
                 }

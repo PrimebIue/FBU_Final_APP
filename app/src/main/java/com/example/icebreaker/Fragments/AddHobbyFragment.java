@@ -21,7 +21,8 @@ import com.example.icebreaker.R;
  */
 public class AddHobbyFragment extends DialogFragment {
 
-    private EditText mEditText;
+    private EditText etHobbyName;
+    private EditText etEmoji;
 
     public AddHobbyFragment() {
         // Required empty public constructor
@@ -46,12 +47,12 @@ public class AddHobbyFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        mEditText = (EditText) view.findViewById(R.id.txt_your_name);
+        etHobbyName = (EditText) view.findViewById(R.id.etHobbyName);
+        etEmoji = (EditText) view.findViewById(R.id.etEmoji);
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
         // Show soft keyboard automatically and request focus to field
-        mEditText.requestFocus();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }
