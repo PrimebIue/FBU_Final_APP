@@ -43,26 +43,26 @@ public class LoginActivity extends AppCompatActivity {
         // Login with Facebook
         btnLoginFB.setOnClickListener(v -> {
             final ProgressDialog dialog = new ProgressDialog(this);
-            dialog.setTitle("Please, wait a moment.");
-            dialog.setMessage("Logging in...");
+            dialog.setTitle(getString(R.string.wait_moment));
+            dialog.setMessage(getString(R.string.login_in));
             dialog.show();
             Collection<String> permissions = Arrays.asList("public_profile", "email");
             ParseFacebookUtils.logInWithReadPermissionsInBackground(this, permissions, (user, err) -> {
                 dialog.dismiss();
                 if (err != null) {
-                    Log.e("FacebookLoginExample", "done: ", err);
+                    Log.e(TAG, "done: ", err);
                     Toast.makeText(this, err.getMessage(), Toast.LENGTH_LONG).show();
                 } else if (user == null) {
-                    Toast.makeText(this, "The user cancelled the Facebook login.", Toast.LENGTH_LONG).show();
-                    Log.d("FacebookLoginExample", "Uh oh. The user cancelled the Facebook login.");
+                    Toast.makeText(this, R.string.cancel_fb_login, Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
-                    Toast.makeText(this, "User signed up and logged in through Facebook.", Toast.LENGTH_LONG).show();
-                    Log.d("FacebookLoginExample", "User signed up and logged in through Facebook!");
+                    Toast.makeText(this, R.string.sign_login_facebook, Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "User signed up and logged in through Facebook!");
                     getUserDetailFromFB();
                 } else {
-                    Toast.makeText(this, "User logged in through Facebook.", Toast.LENGTH_LONG).show();
-                    Log.d("FacebookLoginExample", "User logged in through Facebook!");
-                    showAlert("Oh, you!", "Welcome back!");
+                    Toast.makeText(this, R.string.login_facebook, Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "User logged in through Facebook!");
+                    showAlert(getString(R.string.oh_you), getString(R.string.welcome_back));
                 }
             });
         });
@@ -94,11 +94,11 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with login", e);
-                    Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.login_issue, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -127,9 +127,9 @@ public class LoginActivity extends AppCompatActivity {
             }
             user.saveInBackground(e -> {
                 if (e == null) {
-                    showAlert("First Time Login!", "Welcome!");
+                    showAlert(getString(R.string.first_login), getString(R.string.welcome));
                 } else
-                    showAlert("Error", e.getMessage());
+                    showAlert(getString(R.string.error), e.getMessage());
             });
         });
 
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", (dialog, which) -> {
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
                     dialog.cancel();
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

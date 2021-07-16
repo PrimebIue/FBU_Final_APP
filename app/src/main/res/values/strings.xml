@@ -11,4 +11,20 @@
     <string name="back4app_client_key">AFmwyK0BnLjhjw0qHncPd5V3OhnM6ickBpqweaQC</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up_issue">Issue with SignUp</string>
+    <string name="successful_sign_up">Sign Up successful. Try to log in.</string>
+    <string name="cancel_fb_login">The user cancelled the Facebook login.</string>
+    <string name="sign_login_facebook">User signed up and logged in through Facebook.</string>
+    <string name="login_facebook">User logged in through Facebook.</string>
+    <string name="wait_moment">Please, wait a moment.</string>
+    <string name="login_in">Logging in...</string>
+    <string name="login_issue">Issue with login</string>
+    <string name="success">Success!</string>
+    <string name="saving_error">Error while saving!</string>
+    <string name="oh_you">Oh, you!</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="first_login">First Time Login!</string>
+    <string name="welcome">Welcome!</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
 </resources>

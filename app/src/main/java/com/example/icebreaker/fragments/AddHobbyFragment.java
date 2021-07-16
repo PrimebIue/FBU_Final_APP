@@ -67,7 +67,7 @@ public class AddHobbyFragment extends DialogFragment {
                     public void done(ParseException e) {
                         if (e != null) {
                             Log.e(TAG, "Error while saving hobby.", e);
-                            Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
                         }
                         Log.i(TAG, "Hobby save successful");
                         etHobbyName.setText("");

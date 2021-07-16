@@ -33,15 +33,12 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_hobbies:
-                        Toast.makeText(MainActivity.this, "Hobbies!", Toast.LENGTH_SHORT).show();
                         fragment = new HobbiesFragment();
                         break;
                     case R.id.action_icebreak:
-                        Toast.makeText(MainActivity.this, "IceBreak!", Toast.LENGTH_SHORT).show();
                         fragment = new IcebreakFragment();
                         break;
                     case R.id.action_profile:
-                        Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
                         fragment = new ProfileFragment();
                         break;
                     default:

@@ -47,10 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e != null) {
                             Log.e(TAG, "Issue with SignUp", e);
-                            Toast.makeText(SignUpActivity.this, "Issue with SignUp", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, R.string.sign_up_issue, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Toast.makeText(SignUpActivity.this, "Sign Up successful. Try to log in.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, R.string.successful_sign_up, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
