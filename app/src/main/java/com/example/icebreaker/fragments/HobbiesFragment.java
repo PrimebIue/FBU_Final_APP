@@ -1,4 +1,4 @@
-package com.example.icebreaker.Fragments;
+package com.example.icebreaker.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -17,10 +17,9 @@ import android.view.ViewGroup;
 
 import com.example.icebreaker.HobbiesAdapter;
 import com.example.icebreaker.R;
-import com.example.icebreaker.Subclasses.Hobby;
+import com.example.icebreaker.subclasses.Hobby;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;

@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.icebreaker.Fragments.HobbiesFragment;
-import com.example.icebreaker.Fragments.IcebreakFragment;
-import com.example.icebreaker.Fragments.ProfileFragment;
+import com.example.icebreaker.fragments.HobbiesFragment;
+import com.example.icebreaker.fragments.IcebreakFragment;
+import com.example.icebreaker.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

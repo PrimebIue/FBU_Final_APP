@@ -2,7 +2,7 @@ package com.example.icebreaker;
 
 import android.app.Application;
 
-import com.example.icebreaker.Subclasses.Hobby;
+import com.example.icebreaker.subclasses.Hobby;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.facebook.ParseFacebookUtils;

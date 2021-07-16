@@ -1,4 +1,4 @@
-package com.example.icebreaker.Fragments;
+package com.example.icebreaker.fragments;
 
 import android.os.Bundle;
 

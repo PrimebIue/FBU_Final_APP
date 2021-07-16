@@ -1,7 +1,5 @@
-package com.example.icebreaker.Fragments;
+package com.example.icebreaker.fragments;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.icebreaker.R;
-import com.example.icebreaker.Subclasses.Hobby;
+import com.example.icebreaker.subclasses.Hobby;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 

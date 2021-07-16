@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icebreaker.Subclasses.Hobby;
+import com.example.icebreaker.subclasses.Hobby;
 
 import java.util.List;
 
