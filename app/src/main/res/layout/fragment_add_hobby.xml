@@ -49,5 +49,17 @@
         android:paddingEnd="8dp"
         android:layout_marginBottom="10dp"/>
 
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etHobbyName"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/light_blue"
+        android:text="Add"
+        android:textColor="@color/white"/>
+
 
 </RelativeLayout>

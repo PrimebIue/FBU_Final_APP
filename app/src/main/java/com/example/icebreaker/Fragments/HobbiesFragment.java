@@ -71,17 +71,16 @@ public class HobbiesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addHobbyDialog();
-                queryHobbies();
+                queryHobbiesUpdate();
             }
         });
-        
         queryHobbies();
     }
 
     private void addHobbyDialog() {
         FragmentManager fragmentManager = getFragmentManager();
-        AddHobbyFragment addHobbyFragment = AddHobbyFragment.newInstance("Some Title");
-        addHobbyFragment.show(fragmentManager, "fragment_add_hobby");
+        AddHobbyFragment addHobbyFragment = new AddHobbyFragment();
+        addHobbyFragment.show(fragmentManager, "addHobbyFragment");
     }
 
     private void queryHobbies() {
@@ -97,7 +96,33 @@ public class HobbiesFragment extends Fragment {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting hobbies.", e);
                 }
-                
+
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void queryHobbiesUpdate() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.include("usersWithHobby");
+        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                allHobbies.clear();
+                adapter.notifyDataSetChanged();
+
                 for (Hobby hobby : hobbies) {
                     Log.i(TAG, "Hobby: " + hobby.getName());
                 }

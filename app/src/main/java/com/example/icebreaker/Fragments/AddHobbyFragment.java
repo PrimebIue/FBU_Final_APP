@@ -8,32 +8,33 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.icebreaker.R;
+import com.example.icebreaker.Subclasses.Hobby;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddHobbyFragment extends DialogFragment {
 
+    public static final String TAG = "AddHobbyFragment";
+
     private EditText etHobbyName;
     private EditText etEmoji;
 
     public AddHobbyFragment() {
         // Required empty public constructor
-    }
-
-    public static AddHobbyFragment newInstance(String title) {
-        AddHobbyFragment frag = new AddHobbyFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        frag.setArguments(args);
-        return frag;
     }
 
     @Override
@@ -49,10 +50,38 @@ public class AddHobbyFragment extends DialogFragment {
         // Get field from view
         etHobbyName = (EditText) view.findViewById(R.id.etHobbyName);
         etEmoji = (EditText) view.findViewById(R.id.etEmoji);
-        // Fetch arguments from bundle and set title
-        String title = getArguments().getString("title", "Enter Name");
-        getDialog().setTitle(title);
-        // Show soft keyboard automatically and request focus to field
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        final Button btnAdd = view.findViewById(R.id.btnAdd);
+
+        /*ParseObject hobby = new Hobby();*/
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create Parse hobby object
+                Hobby hobby = new Hobby();
+
+                String hobbyName = etHobbyName.getText().toString();
+                String emoji = etEmoji.getText().toString();
+                if (emoji.length() > 2) {
+                    Toast.makeText(v.getContext(), "Sorry, can't add more than 2 emojis.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                hobby.setEmoji(emoji);
+                hobby.setName(hobbyName);
+                hobby.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error while saving hobby.", e);
+                            Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                        }
+                        Log.i(TAG, "Hobby save successful");
+                        etHobbyName.setText("");
+                        etEmoji.setText("");
+                    }
+                });
+            }
+        });
     }
+
+
 }
