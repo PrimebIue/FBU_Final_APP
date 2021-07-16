@@ -1,6 +1,7 @@
 package com.example.icebreaker.Fragments;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.example.icebreaker.R;
 import com.example.icebreaker.Subclasses.Hobby;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 /**
@@ -61,12 +63,9 @@ public class AddHobbyFragment extends DialogFragment {
 
                 String hobbyName = etHobbyName.getText().toString();
                 String emoji = etEmoji.getText().toString();
-                if (emoji.length() > 2) {
-                    Toast.makeText(v.getContext(), "Sorry, can't add more than 2 emojis.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 hobby.setEmoji(emoji);
                 hobby.setName(hobbyName);
+                hobby.getRelation("usersWithHobby").add(ParseUser.getCurrentUser());
                 hobby.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -77,11 +76,10 @@ public class AddHobbyFragment extends DialogFragment {
                         Log.i(TAG, "Hobby save successful");
                         etHobbyName.setText("");
                         etEmoji.setText("");
+                        getDialog().dismiss();
                     }
                 });
             }
         });
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.example.icebreaker.Fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,7 +72,6 @@ public class HobbiesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addHobbyDialog();
-                queryHobbiesUpdate();
             }
         });
         queryHobbies();
@@ -81,6 +81,14 @@ public class HobbiesFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         AddHobbyFragment addHobbyFragment = new AddHobbyFragment();
         addHobbyFragment.show(fragmentManager, "addHobbyFragment");
+
+        fragmentManager.executePendingTransactions();
+        addHobbyFragment.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                queryHobbiesUpdate();
+            }
+        });
     }
 
     private void queryHobbies() {
