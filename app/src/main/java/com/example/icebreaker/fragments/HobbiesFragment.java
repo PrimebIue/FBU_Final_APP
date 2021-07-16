@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class HobbiesFragment extends Fragment {
     
-    public static final String TAG = "HobbiesFragment";
+    private static final String TAG = "HobbiesFragment";
     
     private HobbiesAdapter adapter;
     private List<Hobby> allHobbies;

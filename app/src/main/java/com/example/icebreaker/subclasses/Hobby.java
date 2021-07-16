@@ -6,8 +6,8 @@ import com.parse.ParseObject;
 @ParseClassName("Hobby")
 public class Hobby extends ParseObject {
 
-    public static final String KEY_NAME = "name";
-    public static final String KEY_EMOJI = "emoji";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_EMOJI = "emoji";
 
     public String getName() { return getString(KEY_NAME); }
     public void setName(String name) { put(KEY_NAME, name); }

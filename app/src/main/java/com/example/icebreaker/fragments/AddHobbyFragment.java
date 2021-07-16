@@ -26,7 +26,7 @@ import com.parse.SaveCallback;
  */
 public class AddHobbyFragment extends DialogFragment {
 
-    public static final String TAG = "AddHobbyFragment";
+    private static final String TAG = "AddHobbyFragment";
 
     private EditText etHobbyName;
     private EditText etEmoji;

@@ -27,7 +27,7 @@ import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String TAG = "LoginActivity";
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
