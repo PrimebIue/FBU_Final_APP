@@ -1,5 +1,6 @@
 package com.fbu.icebreaker.fragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -23,6 +27,8 @@ import com.parse.ParseUser;
 public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
+
+    private ImageView ivProfilePicture;
 
     private TextView tvUsername;
     private TextView tvHobbiesNumber;
@@ -45,6 +51,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         tvUsername = view.findViewById(R.id.tvUsername);
         tvHobbiesNumber = view.findViewById(R.id.tvHobbiesNumber);
         tvBio = view.findViewById(R.id.tvBio);
@@ -55,6 +62,23 @@ public class ProfileFragment extends Fragment {
         tvUsername.setText(user.getUsername());
         tvBio.setText(user.getString("bio"));
 
-        ParseQuery<Hobby> hobby = ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
+
+        try {
+            tvHobbiesNumber.setText(String.valueOf(query.whereEqualTo("usersWithHobby", user).count()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(getContext())
+                .load(user.getParseFile("profilePicture").getUrl())
+                .into(ivProfilePicture);
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO-- Dialog fragment for editing profile
+            }
+        });
     }
 }
