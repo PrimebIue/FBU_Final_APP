@@ -1,4 +1,4 @@
-package com.example.icebreaker;
+package com.fbu.icebreaker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,11 +7,10 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.icebreaker.fragments.HobbiesFragment;
-import com.example.icebreaker.fragments.IcebreakFragment;
-import com.example.icebreaker.fragments.ProfileFragment;
+import com.fbu.icebreaker.fragments.HobbiesFragment;
+import com.fbu.icebreaker.fragments.IcebreakFragment;
+import com.fbu.icebreaker.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

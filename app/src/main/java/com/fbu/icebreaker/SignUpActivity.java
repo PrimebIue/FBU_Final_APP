@@ -1,4 +1,4 @@
-package com.example.icebreaker;
+package com.fbu.icebreaker;
 
 import androidx.appcompat.app.AppCompatActivity;
 

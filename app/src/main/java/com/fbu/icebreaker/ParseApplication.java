@@ -1,8 +1,8 @@
-package com.example.icebreaker;
+package com.fbu.icebreaker;
 
 import android.app.Application;
 
-import com.example.icebreaker.subclasses.Hobby;
+import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.facebook.ParseFacebookUtils;

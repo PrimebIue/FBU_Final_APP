@@ -1,4 +1,4 @@
-package com.example.icebreaker;
+package com.fbu.icebreaker;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icebreaker.subclasses.Hobby;
+import com.fbu.icebreaker.subclasses.Hobby;
 
 import java.util.List;
 

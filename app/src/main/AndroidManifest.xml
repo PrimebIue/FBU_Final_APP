@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.icebreaker">
+    package="com.fbu.icebreaker">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".ParseApplication"
+        android:name="com.fbu.icebreaker.ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IceBreaker">
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name="com.fbu.icebreaker.SignUpActivity"></activity>
         <!-- Back4App setup -->
         <meta-data
             android:name="com.parse.SERVER_URL"
@@ -26,7 +26,7 @@
             android:value="@string/back4app_client_key" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name="com.fbu.icebreaker.LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.fbu.icebreaker.MainActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -1,4 +1,4 @@
-package com.example.icebreaker.fragments;
+package com.fbu.icebreaker.fragments;
 
 import android.os.Bundle;
 
@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.icebreaker.R;
-import com.example.icebreaker.subclasses.Hobby;
+import com.fbu.icebreaker.R;
+import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;

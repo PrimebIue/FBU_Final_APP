@@ -1,4 +1,4 @@
-package com.example.icebreaker.subclasses;
+package com.fbu.icebreaker.subclasses;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
