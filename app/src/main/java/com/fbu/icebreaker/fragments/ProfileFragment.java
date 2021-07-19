@@ -1,11 +1,14 @@
 package com.fbu.icebreaker.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.Login;
+import com.fbu.icebreaker.LoginActivity;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.ParseException;
@@ -35,6 +40,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvBio;
 
     private Button btnEditProfile;
+    private Button btnLogout;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -56,6 +62,7 @@ public class ProfileFragment extends Fragment {
         tvHobbiesNumber = view.findViewById(R.id.tvHobbiesNumber);
         tvBio = view.findViewById(R.id.tvBio);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
         ParseUser user = ParseUser.getCurrentUser();
 
@@ -77,8 +84,40 @@ public class ProfileFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO-- Dialog fragment for editing profile
+                addEditProfileDialog();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
             }
         });
     }
+
+    private void addEditProfileDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        EditProfileFragment editProfileFragment = new EditProfileFragment();
+        editProfileFragment.show(fragmentManager, "editProfileFragment");
+
+        fragmentManager.executePendingTransactions();
+        editProfileFragment.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+                tvBio.setText(ParseUser.getCurrentUser().getString("bio"));
+                Glide.with(getContext())
+                        .load(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl())
+                        .into(ivProfilePicture);
+            }
+        });
+    }
+
+
 }

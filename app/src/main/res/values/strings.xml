@@ -27,4 +27,8 @@
     <string name="welcome">Welcome!</string>
     <string name="error">Error</string>
     <string name="ok">OK</string>
+    <string name="user_save_successful">User save was successful!</string>
+    <string name="username_min_length">username can\'t be less than 5 characters</string>
+    <string name="username_empty_requirement">username can\'t be empty.</string>
+    <string name="bio_empty_requirement">Bio can\'t be empty.</string>
 </resources>
