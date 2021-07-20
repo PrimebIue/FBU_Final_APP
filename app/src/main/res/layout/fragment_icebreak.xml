@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.IcebreakFragment"
     android:background="@color/gray_500">
-
+    
     <ImageView
         android:id="@+id/ivQRCode"
         android:layout_width="120dp"

@@ -45,5 +45,12 @@ public class IcebreakFragment extends Fragment {
         Glide.with(getContext())
                 .load(qrCodeUrl)
                 .into(ivQRCode);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 }
