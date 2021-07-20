@@ -37,25 +37,27 @@ public class QRScanActivity extends AppCompatActivity {
             mPermissionGranted = true;
         }
 
-        CodeScannerView scannerView = findViewById(R.id.scannerView);
-        mCodeScanner = new CodeScanner(this, scannerView);
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(QRScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCodeScanner.startPreview();
-            }
-        });
+        if (mPermissionGranted == true) {
+            CodeScannerView scannerView = findViewById(R.id.scannerView);
+            mCodeScanner = new CodeScanner(this, scannerView);
+            mCodeScanner.setDecodeCallback(new DecodeCallback() {
+                @Override
+                public void onDecoded(@NonNull final Result result) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(QRScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+            scannerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCodeScanner.startPreview();
+                }
+            });
+        }
     }
 
     @Override
