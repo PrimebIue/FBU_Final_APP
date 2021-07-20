@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
 public class QRScanActivity extends AppCompatActivity {
+
+    private static final String SCANNED_USER_ID_ID = "userid";
 
     private static final int RC_PERMISSION = 10;
     private CodeScanner mCodeScanner;
@@ -37,9 +40,8 @@ public class QRScanActivity extends AppCompatActivity {
             mPermissionGranted = true;
         }
 
-        if (mPermissionGranted == true)
+        if (mPermissionGranted)
             scanner();
-
     }
 
     @Override
@@ -65,7 +67,12 @@ public class QRScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(QRScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        String scannedUserId = result.getText();
+                        // TODO -- User pair activity
+                        Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
+                        i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
+                        startActivity(i);
+                        finish();
                     }
                 });
             }
