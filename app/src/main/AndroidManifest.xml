@@ -8,7 +8,6 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
