@@ -68,7 +68,6 @@ public class QRScanActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         String scannedUserId = result.getText();
-                        // TODO -- User pair activity
                         Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
                         i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
                         startActivity(i);
