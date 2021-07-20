@@ -1,5 +1,6 @@
 package com.fbu.icebreaker.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.fbu.icebreaker.QRScanActivity;
 import com.fbu.icebreaker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseUser;
@@ -49,7 +51,8 @@ public class IcebreakFragment extends Fragment {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent i = new Intent(getActivity(), QRScanActivity.class);
+                startActivity(i);
             }
         });
     }
