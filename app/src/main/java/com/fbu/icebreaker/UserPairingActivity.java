@@ -72,11 +72,8 @@ public class UserPairingActivity extends AppCompatActivity {
                 .load(user.getParseFile("profilePicture"))
                 .into(ivProfilePicture);
 
+        Log.i(TAG, "NEW VERSION");
         queryQRHobbies();
-        tvHobbiesNumber.setText(qrHobbies.size());
-        queryCurrUserHobbies();
-        allHobbies.retainAll(qrHobbies);
-        adapter.notifyDataSetChanged();
     }
 
     private void queryCurrUserHobbies() {
@@ -84,7 +81,7 @@ public class UserPairingActivity extends AppCompatActivity {
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
-        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.whereEqualTo("usersWithHobby", user);
         query.findInBackground(new FindCallback<Hobby>() {
             @Override
             public void done(List<Hobby> hobbies, ParseException e) {
@@ -93,11 +90,16 @@ public class UserPairingActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting hobbies.", e);
                 }
 
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
+                for (Hobby hobby : qrHobbies) {
+                    Log.i(TAG, "qrHobbies" + hobby.getName());
                 }
-                Log.i(TAG, "Gets here" + hobbies);
-                allHobbies = hobbies;
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "allHobbies" + hobby.getName());
+                    if (!qrHobbies.contains(hobby))
+                        allHobbies.add(hobby);
+                }
+                
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -116,11 +118,10 @@ public class UserPairingActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting hobbies.", e);
                 }
 
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
-                }
-                Log.i(TAG, "Gets here" + hobbies);
-                qrHobbies = hobbies;
+                qrHobbies.addAll(hobbies);
+
+                tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
+                queryCurrUserHobbies();
             }
         });
     }
