@@ -19,6 +19,7 @@ import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserPairingActivity extends AppCompatActivity {
@@ -45,6 +46,8 @@ public class UserPairingActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         tvBio = findViewById(R.id.tvBio);
         tvHobbiesNumber = findViewById(R.id.tvHobbiesNumber);
+        allHobbies = new ArrayList<>();
+        qrHobbies = new ArrayList<>();
 
         rvPairedHobbies = findViewById(R.id.rvPairedHobbies);
         adapter = new HobbiesAdapter(this, allHobbies);
