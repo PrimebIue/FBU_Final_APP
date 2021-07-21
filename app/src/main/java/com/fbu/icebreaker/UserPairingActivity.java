@@ -1,6 +1,8 @@
 package com.fbu.icebreaker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.media.Image;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,20 +25,32 @@ public class UserPairingActivity extends AppCompatActivity {
 
     private static final String TAG = "UserPairingActivity";
 
-    private ImageView tvProfilePicture;
+    private ImageView ivProfilePicture;
     private TextView tvUsername;
     private TextView tvHobbiesNumber;
     private TextView tvBio;
     private ParseUser user;
-    private List<Hobby> currUserHobbies;
+    private List<Hobby> allHobbies;
     private List<Hobby> qrHobbies;
+
+    private HobbiesAdapter adapter;
+    private RecyclerView rvPairedHobbies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_pairing);
 
+        ivProfilePicture = findViewById(R.id.ivProfilePicture);
         tvUsername = findViewById(R.id.tvUsername);
+        tvBio = findViewById(R.id.tvBio);
+        tvHobbiesNumber = findViewById(R.id.tvHobbiesNumber);
+
+        rvPairedHobbies = findViewById(R.id.rvPairedHobbies);
+        adapter = new HobbiesAdapter(this, allHobbies);
+        rvPairedHobbies.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvPairedHobbies.setLayoutManager(linearLayoutManager);
 
         final String userId = getIntent().getStringExtra("userid");
 
@@ -48,6 +63,17 @@ public class UserPairingActivity extends AppCompatActivity {
         }
 
         tvUsername.setText(user.getUsername());
+        tvBio.setText(user.getString("bio"));
+
+        Glide.with(this)
+                .load(user.getParseFile("profilePicture"))
+                .into(ivProfilePicture);
+
+        queryQRHobbies();
+        tvHobbiesNumber.setText(qrHobbies.size());
+        queryCurrUserHobbies();
+        allHobbies.retainAll(qrHobbies);
+        adapter.notifyDataSetChanged();
     }
 
     private void queryCurrUserHobbies() {
@@ -68,7 +94,7 @@ public class UserPairingActivity extends AppCompatActivity {
                     Log.i(TAG, "Hobby: " + hobby.getName());
                 }
                 Log.i(TAG, "Gets here" + hobbies);
-                currUserHobbies = hobbies;
+                allHobbies = hobbies;
             }
         });
     }
