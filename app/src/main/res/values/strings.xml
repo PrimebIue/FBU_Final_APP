@@ -31,4 +31,6 @@
     <string name="username_min_length">username can\'t be less than 5 characters</string>
     <string name="username_empty_requirement">username can\'t be empty.</string>
     <string name="bio_empty_requirement">Bio can\'t be empty.</string>
+    <string name="select_hobbies">Select Hobbies!</string>
+    <string name="new_hobby">New Hobby</string>
 </resources>
