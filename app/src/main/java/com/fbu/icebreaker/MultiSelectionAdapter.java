@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fbu.icebreaker.subclasses.Hobby;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 
 public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAdapter.MultiViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList<Hobby> hobbies;
 
     public MultiSelectionAdapter(Context context, ArrayList<Hobby> hobbies) {
@@ -47,15 +49,21 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
 
     class MultiViewHolder extends RecyclerView.ViewHolder {
 
+        private final RelativeLayout rlHobbySelection;
+
         public MultiViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlHobbySelection = itemView.findViewById(R.id.rlHobbySelection);
         }
 
         void bind(final Hobby hobby) {
+            rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.gray_500) : ContextCompat.getColor(context, R.color.light_blue));
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     hobby.setChecked(!hobby.getChecked());
+                    rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.gray_500) : ContextCompat.getColor(context, R.color.light_blue));
                 }
             });
         }
