@@ -57,10 +57,12 @@ public class AddHobbyFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        getDialog().getWindow().setLayout(getResources().getDisplayMetrics().widthPixels - 30, getResources().getDisplayMetrics().heightPixels - 30);
+
         // Get field from view
         rvHobbySelector = view.findViewById(R.id.rvHobbySelector);
         btnAdd = view.findViewById(R.id.btnAdd);
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHobbySelector.setLayoutManager(layoutManager);

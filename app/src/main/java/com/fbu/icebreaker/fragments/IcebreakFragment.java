@@ -42,7 +42,7 @@ public class IcebreakFragment extends Fragment {
         ivQRCode = view.findViewById(R.id.ivQRCode);
         btnCamera = view.findViewById(R.id.btnCamera);
 
-        final String qrCodeUrl = String.format("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=%s", ParseUser.getCurrentUser().getObjectId());
+        final String qrCodeUrl = String.format("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=%s", ParseUser.getCurrentUser().getObjectId());
 
         Glide.with(getContext())
                 .load(qrCodeUrl)
