@@ -49,8 +49,15 @@ public class UserPairingActivity extends AppCompatActivity {
         allHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
 
+        HobbiesAdapter.OnClickListener onClickListener = new HobbiesAdapter.OnClickListener() {
+            @Override
+            public void onRemoveClicked(int position) {
+
+            }
+        };
+
         rvPairedHobbies = findViewById(R.id.rvPairedHobbies);
-        adapter = new HobbiesAdapter(this, allHobbies);
+        adapter = new HobbiesAdapter(this, allHobbies, onClickListener);
         rvPairedHobbies.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvPairedHobbies.setLayoutManager(linearLayoutManager);

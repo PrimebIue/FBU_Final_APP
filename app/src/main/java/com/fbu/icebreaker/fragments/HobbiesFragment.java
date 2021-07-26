@@ -1,10 +1,12 @@
 package com.fbu.icebreaker.fragments;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fbu.icebreaker.HobbiesAdapter;
 import com.fbu.icebreaker.R;
@@ -23,6 +26,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +58,50 @@ public class HobbiesFragment extends Fragment {
         
         final RecyclerView rvHobbies = view.findViewById(R.id.rvHobbies);
         final FloatingActionButton btnAddHobby = view.findViewById(R.id.btnAddHobby);
+
+        HobbiesAdapter.OnClickListener onClickListener = new HobbiesAdapter.OnClickListener() {
+            @Override
+            public void onRemoveClicked(int position) {
+                Log.i(TAG, "Click at post position: " + position);
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                allHobbies.get(position).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
+                                allHobbies.get(position).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            Log.e(TAG, "Error while removing hobby", e);
+                                            Toast.makeText(getContext(), getString(R.string.removing_hobby_error), Toast.LENGTH_SHORT).show();
+                                        }
+                                        Log.i(TAG, "Hobby removal successful");
+                                    }
+                                });
+
+                                queryHobbiesUpdate();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                // do nothing
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder ab = new AlertDialog.Builder(getContext());
+                ab.setMessage(getString(R.string.remove_hobby_question))
+                        .setPositiveButton(R.string.remove, dialogClickListener)
+                        .setNegativeButton(R.string.Cancel, dialogClickListener)
+                        .show();
+            }
+        };
         
         // Initialize the array
         allHobbies = new ArrayList<>();
-        adapter = new HobbiesAdapter(getContext(), allHobbies);
+        adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
         
         // Set the adapter
         rvHobbies.setAdapter(adapter);

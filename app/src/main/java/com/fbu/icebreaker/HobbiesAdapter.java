@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,16 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
     private Context context;
     private List<Hobby> hobbies;
+    private OnClickListener clickListener;
 
-    public HobbiesAdapter(Context context, List<Hobby> hobbies) {
+    public interface OnClickListener {
+        void onRemoveClicked(int position);
+    }
+
+    public HobbiesAdapter(Context context, List<Hobby> hobbies, OnClickListener clickListener) {
         this.context = context;
         this.hobbies = hobbies;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -43,16 +50,20 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
         private TextView tvHobbyName;
         private TextView tvEmoji;
+        private ImageView ivRemove;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
             tvEmoji = itemView.findViewById(R.id.tvEmoji);
+            ivRemove = itemView.findViewById(R.id.ivRemove);
         }
 
         public void bind(Hobby hobby) {
             tvHobbyName.setText(hobby.getName());
             tvEmoji.setText(hobby.getEmoji());
+
+            ivRemove.setOnClickListener(v -> clickListener.onRemoveClicked(getAdapterPosition()));
         }
     }
 }

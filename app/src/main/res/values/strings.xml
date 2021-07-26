@@ -33,4 +33,8 @@
     <string name="bio_empty_requirement">Bio can\'t be empty.</string>
     <string name="select_hobbies">Select Hobbies!</string>
     <string name="new_hobby">New Hobby</string>
+    <string name="remove_hobby_question">Are you sure to remove hobby?</string>
+    <string name="remove">Remove</string>
+    <string name="Cancel">Cancel</string>
+    <string name="removing_hobby_error">Error while removing hobby.</string>
 </resources>
