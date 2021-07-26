@@ -34,11 +34,11 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * [x] The user can log-in with their Facebook account
 * [x] The user can navigate the app using Bottom navigation.
 * [x] User's inputs are saved between sesions.
-* [ ] The app can generate a QR code that links to the User's profile that another user with the app can scan.
+* [x] The app can generate a QR code that links to the User's profile that another user with the app can scan.
 * [ ] User can import their Hobbies from their Facebook profile.
-* [ ] The user can input their hobbies/interests into a list (Recycler View).
-
-* [ ] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the similarities.
+* [x] The user can input their hobbies/interests into a list (Recycler View).
+* [ ] User can zoom in into the qr code by using 2 finger gesture
+* [x] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the similarities.
 * [ ] The app allows you to add the other person as a friend in Facebook through the app.
 * [ ] When looking at other user's hobbies/interests, the app allows you to double tap to add them to your list.
 
