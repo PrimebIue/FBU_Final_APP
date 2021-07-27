@@ -42,6 +42,7 @@ public class AddHobbyFragment extends DialogFragment {
     private List<Hobby> allHobbies;
     private MultiSelectionAdapter adapter;
     private FloatingActionButton btnAdd;
+    private Button btnCreateNewHobby;
 
     public AddHobbyFragment() {
         // Required empty public constructor
@@ -63,6 +64,7 @@ public class AddHobbyFragment extends DialogFragment {
         // Get field from view
         rvHobbySelector = view.findViewById(R.id.rvHobbySelector);
         btnAdd = view.findViewById(R.id.btnAdd);
+        btnCreateNewHobby = view.findViewById(R.id.btnCreateNewHobby);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHobbySelector.setLayoutManager(layoutManager);
@@ -97,11 +99,18 @@ public class AddHobbyFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
+        btnCreateNewHobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void queryHobbies() {
 
-        // TODO -- This currently gets all hobbies, it eventually has to only include hobbies the user doesnt already have
+        // TODO -- This currently gets all hobbies, it eventually has to only include hobbies the user doesn't already have
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.findInBackground(new FindCallback<Hobby>() {
