@@ -1,11 +1,13 @@
 package com.fbu.icebreaker.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,7 +105,7 @@ public class AddHobbyFragment extends DialogFragment {
         btnCreateNewHobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                createHobbyFragment();
             }
         });
     }
@@ -127,6 +129,44 @@ public class AddHobbyFragment extends DialogFragment {
                 Log.i(TAG, "Gets here" + hobbies);
                 allHobbies.addAll(hobbies);
                 adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void queryHobbiesUpdate() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                allHobbies.clear();
+                adapter.notifyDataSetChanged();
+
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void createHobbyFragment() {
+        FragmentManager fragmentManager = getFragmentManager();
+        CreateNewHobby createNewHobby = new CreateNewHobby();
+        createNewHobby.show(fragmentManager, "createNewHobby");
+
+        fragmentManager.executePendingTransactions();
+        createNewHobby.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                queryHobbiesUpdate();
             }
         });
     }

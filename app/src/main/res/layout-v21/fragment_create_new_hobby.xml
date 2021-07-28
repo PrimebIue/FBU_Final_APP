@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CreateNewHobby">
+
+    <TextView
+        android:id="@+id/tvCreateNewHobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new Hobby!"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        />
+
+    <EditText
+        android:id="@+id/etHobbyName"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tvCreateNewHobby"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/custom_input"
+        android:hint="Hobby Name"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnCancelHobbyAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etHobbyName"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="-1dp"
+        android:backgroundTint="@color/light_blue"
+        android:text="@string/Cancel" />
+
+    <Button
+        android:id="@+id/btnAddHobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etHobbyName"
+        android:backgroundTint="@color/light_blue"
+        android:layout_alignParentRight="true"
+        android:text="@string/add"
+        android:layout_marginEnd="40dp"/>
+
+
+
+</RelativeLayout>
