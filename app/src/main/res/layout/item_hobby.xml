@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/bSearch2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:background="@drawable/button_round"
         android:clickable="true"
         android:padding="5dp"
@@ -18,27 +18,45 @@
         android:layout_marginTop="10dp">
 
         <TextView
-            android:id="@+id/tvEmoji"
+            android:id="@+id/tvTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:text="🏉"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginLeft="5dp" />
+            android:textSize="16dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/tvHobbyName"/>
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTag"
+            tools:text="@tools:sample/lorem/random"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="12dp"/>
 
         <TextView
             android:id="@+id/tvHobbyName"
-            android:layout_width="290dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="24sp"
-            android:paddingRight="30dp"
-            android:gravity="center"
-            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_black"
             android:text="Test Hobby name"
-            android:layout_toRightOf="@+id/tvEmoji"/>
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:layout_alignParentRight="true"
+            tools:src="@tools:sample/avatars"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
 
         <ImageView
             android:id="@+id/ivRemove"

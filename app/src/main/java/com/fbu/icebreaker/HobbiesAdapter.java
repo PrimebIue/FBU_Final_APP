@@ -55,7 +55,7 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
-            tvEmoji = itemView.findViewById(R.id.tvEmoji);
+            tvEmoji = itemView.findViewById(R.id.tvTag);
             ivRemove = itemView.findViewById(R.id.ivRemove);
         }
 

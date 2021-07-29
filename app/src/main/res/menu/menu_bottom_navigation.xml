@@ -5,21 +5,23 @@
 
     <item
         android:id="@+id/action_hobbies"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@drawable/outline_celebration_black_24dp"
         android:title="Home"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 
     <item
         android:id="@+id/action_icebreak"
 
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/outline_qr_code_scanner_black_24dp"
         android:title="Compose"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_profile"
-        android:icon="@android:drawable/ic_menu_call"
+        android:icon="@drawable/outline_face_black_24dp"
         android:title="Profile"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 
 </menu>

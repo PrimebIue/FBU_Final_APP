@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fbu.icebreaker.subclasses.Hobby;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
             super(itemView);
             rlHobbySelection = itemView.findViewById(R.id.rlHobbySelection);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
-            tvEmoji = itemView.findViewById(R.id.tvEmoji);
+            tvEmoji = itemView.findViewById(R.id.tvTag);
         }
 
         void bind(final Hobby hobby) {

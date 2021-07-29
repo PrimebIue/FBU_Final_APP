@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.EditProfileFragment"
-    android:background="@color/gray_500">
+    android:background="@color/off_white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfilePicture"
