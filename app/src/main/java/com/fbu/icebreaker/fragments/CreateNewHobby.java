@@ -33,12 +33,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
@@ -58,6 +61,7 @@ public class CreateNewHobby extends DialogFragment {
     private TagView tvTagsToSelect2;
     private TagView tvTagsToSelect3;
     private TagView tvTagsToSelect4;
+    private TagView tvSelectedTags;
 
     private static String result = null;
     private Integer responseCode = null;
@@ -65,6 +69,7 @@ public class CreateNewHobby extends DialogFragment {
 
     private ParseFile image = null;
     private String hobbyDescription = "";
+    private ArrayList<String> newHobbyTags = new ArrayList<String>();
 
     private WorkCounter workCounter = new WorkCounter(2);
 
@@ -92,15 +97,9 @@ public class CreateNewHobby extends DialogFragment {
         tvTagsToSelect2 = view.findViewById(R.id.tvTagsToSelect2);
         tvTagsToSelect3 = view.findViewById(R.id.tvTagsToSelect3);
         tvTagsToSelect4 = view.findViewById(R.id.tvTagsToSelect4);
+        tvSelectedTags = view.findViewById(R.id.tvSelectedTags);
 
-        // Create the tags to select
-//        for (String s : HOBBY_TAGS) {
-//            Tag tag = new Tag(s);
-//            tag.tagTextSize = 12;
-//            tag.radius = 20;
-//            tvTagsToSelect.addTag(tag);
-//        }
-
+        // Had to use multiple TagView because it was impossible to fit the tags without modifying the library
         for(int i = 0; i < HOBBY_TAGS.length; i++){
             Tag tag = new Tag(HOBBY_TAGS[i]);
             tag.tagTextSize = 12;
@@ -112,9 +111,43 @@ public class CreateNewHobby extends DialogFragment {
                 tvTagsToSelect3.addTag(tag);
             else if (i <= 16)
                 tvTagsToSelect4.addTag(tag);
-
         }
 
+        tvTagsToSelect.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(int i, Tag tag) {
+                onAddTagClick(tag);
+            }
+        });
+
+        tvTagsToSelect2.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(int i, Tag tag) {
+                onAddTagClick(tag);
+            }
+        });
+
+        tvTagsToSelect3.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(int i, Tag tag) {
+                onAddTagClick(tag);
+            }
+        });
+
+        tvTagsToSelect4.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(int i, Tag tag) {
+                onAddTagClick(tag);
+            }
+        });
+
+        tvSelectedTags.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(int i, Tag tag) {
+                tvSelectedTags.remove(i);
+                newHobbyTags.remove(i);
+            }
+        });
 
         btnCancelHobbyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,21 +202,27 @@ public class CreateNewHobby extends DialogFragment {
         Hobby hobby = new Hobby();
         hobby.setDescription(hobbyDescription);
         hobby.setName(etHobbyName.getText().toString());
+        hobby.setTags(newHobbyTags);
 
         if (image != null)
             hobby.setImage(image);
 
-        hobby.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving hobby.", e);
-                    Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
+        if (newHobbyTags.size() != 0) {
+            hobby.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Error while saving hobby.", e);
+                        Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
+                    }
+                    Log.i(TAG, "Hobby save successful");
+                    getDialog().dismiss();
                 }
-                Log.i(TAG, "Hobby save successful");
-                getDialog().dismiss();
-            }
-        });
+            });
+        } else {
+            Toast.makeText(getContext(), "Sorry, add at least 1 tag.", Toast.LENGTH_SHORT).show();
+            getDialog().dismiss();
+        }
     }
 
     private class GoogleImageSearchAsyncTask extends AsyncTask<URL, Integer, String> {
@@ -452,6 +491,16 @@ public class CreateNewHobby extends DialogFragment {
             if (--runningTasks == 0) {
                 saveNewHobby();
             }
+        }
+    }
+
+    void onAddTagClick(Tag tag) {
+        if (newHobbyTags.size() < 4) {
+            String tagName = tag.text;
+            newHobbyTags.add(tagName);
+            tvSelectedTags.addTag(tag);
+        } else {
+            Toast.makeText(getContext(), "Sorry, you can only add 4 tags per hobby", Toast.LENGTH_SHORT).show();
         }
     }
 }
