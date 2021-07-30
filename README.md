@@ -90,11 +90,11 @@ The app allows you to log in with your Facebook account and generates a QR code 
    * Hobby/Interest List
 * Hobby/Interest List
    * Add new hobby screen
-    * Create new hobby screen 
+     * Create new hobby screen 
 * QR code screen
     * Qr code scanner
-     * Profile of person you're pairing with
-        * Hobby pairing 
+      * Profile of person you're pairing with
+         * Hobby pairing 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
