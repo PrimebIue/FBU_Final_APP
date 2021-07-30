@@ -247,23 +247,19 @@ public class CreateNewHobby extends DialogFragment {
                 Log.e(TAG, "Http connection ERROR " + e.toString());
             }
 
-
             try {
                 responseCode = conn.getResponseCode();
                 responseMessage = conn.getResponseMessage();
             } catch (IOException e) {
                 Log.e(TAG, "Http getting response code ERROR " + e.toString());
-
             }
 
             // Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
 
             try {
-
                 if(responseCode != null && responseCode == 200) {
 
                     // response OK
-
                     BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
                     String line;
@@ -272,19 +268,14 @@ public class CreateNewHobby extends DialogFragment {
                         sb.append(line + "\n");
                     }
                     rd.close();
-
                     conn.disconnect();
-
                     result = sb.toString();
-
                     // Log.d(TAG, "result=" + result);
-
                     return result;
 
                 }else{
 
                     // response problem
-
                     String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Are you online ? " + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
                     Log.e(TAG, errorMsg);
                     result = errorMsg;
@@ -304,11 +295,9 @@ public class CreateNewHobby extends DialogFragment {
         protected void onPostExecute(String result) {
 
             // Log.d(TAG, "AsyncTask - onPostExecute, result=" + result);
-
             String imageUrl = null;
             try {
                 JSONObject jsonObject = new JSONObject(result);
-
 
                 for (int i = 0; i < jsonObject.getJSONArray("items").length(); i++) {
 
@@ -320,7 +309,6 @@ public class CreateNewHobby extends DialogFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             Log.i(TAG, "ImageUrl = " + imageUrl);
 
             AsyncGettingBitmapFromUrl getBitmap = new AsyncGettingBitmapFromUrl();
@@ -349,23 +337,19 @@ public class CreateNewHobby extends DialogFragment {
                 Log.e(TAG, "Http connection ERROR " + e.toString());
             }
 
-
             try {
                 responseCode = conn.getResponseCode();
                 responseMessage = conn.getResponseMessage();
             } catch (IOException e) {
                 Log.e(TAG, "Http getting response code ERROR " + e.toString());
-
             }
 
             Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
 
             try {
-
                 if(responseCode != null && responseCode == 200) {
 
                     // response OK
-
                     BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
                     String line;
@@ -374,9 +358,7 @@ public class CreateNewHobby extends DialogFragment {
                         sb.append(line + "\n");
                     }
                     rd.close();
-
                     conn.disconnect();
-
                     result = sb.toString();
 
                     Log.d(TAG, "result=" + result);
@@ -386,7 +368,6 @@ public class CreateNewHobby extends DialogFragment {
                 }else{
 
                     // response problem
-
                     String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Are you online ? " + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
                     Log.e(TAG, errorMsg);
                     result = errorMsg;
@@ -401,13 +382,10 @@ public class CreateNewHobby extends DialogFragment {
         }
 
         protected void onProgressUpdate(Integer... progress) {
-
             Log.d(TAG, "AsyncTask - onProgressUpdate, progress=" + progress);
-
         }
 
         protected void onPostExecute(String result) {
-
             Log.d(TAG, "AsyncTask Description - onPostExecute, result=" + result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -426,7 +404,6 @@ public class CreateNewHobby extends DialogFragment {
         protected Bitmap doInBackground(String... params) {
 
             Bitmap bitmap = null;
-
             try {
                 URL url = new URL(params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -439,7 +416,6 @@ public class CreateNewHobby extends DialogFragment {
                 e.printStackTrace();
                 return null;
             }
-
             return bitmap;
         }
 

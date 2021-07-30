@@ -76,7 +76,7 @@ public class UserPairingActivity extends AppCompatActivity {
         tvBio.setText(user.getString("bio"));
 
         Glide.with(this)
-                .load(user.getParseFile("profilePicture"))
+                .load(user.getParseFile("profilePicture").getUrl())
                 .into(ivProfilePicture);
 
         Log.i(TAG, "NEW VERSION");
@@ -84,7 +84,6 @@ public class UserPairingActivity extends AppCompatActivity {
     }
 
     private void queryCurrUserHobbies() {
-
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");

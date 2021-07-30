@@ -134,7 +134,6 @@ public class HobbiesFragment extends Fragment {
     }
 
     private void queryHobbies() {
-
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
