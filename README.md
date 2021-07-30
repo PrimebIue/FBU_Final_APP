@@ -137,5 +137,60 @@ Hobby
 
 ### Networking
 - [Add list of network requests by screen ]
+
+List of network requests by screen
+
+- Profile screen
+  - (Read/GET) Query user information
+      ```swift
+      ParseUser user = ParseUser.getCurrentUser();
+
+      tvUsername.setText(user.getUsername());
+      tvBio.setText(user.getString("bio"));
+
+      ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
+
+      try {
+          tvHobbiesNumber.setText(String.valueOf(query.whereEqualTo("usersWithHobby", user).count()));
+      } catch (ParseException e) {
+          e.printStackTrace();
+      }
+
+      Glide.with(getContext())
+              .load(user.getParseFile("profilePicture").getUrl())
+              .into(ivProfilePicture);
+      ```
+- Edit Profile Screen
+
+  - (Read/GET) Query current user information
+    ```swift
+    ParseUser user = ParseUser.getCurrentUser();
+
+    Glide.with(this)
+            .load(user.getParseFile("profilePicture").getUrl())
+            .into(ivProfilePicture);
+
+    etUsername.setText(user.getUsername());
+    etDescription.setText(user.getString("bio"));
+    ```
+  - (Update/PUT) Update user profile
+    ```swift
+    ParseUser user = ParseUser.getCurrentUser();
+       
+    user.setUsername(username);
+    user.put("bio", description);
+
+    user.saveInBackground(new SaveCallback() {
+        @Override
+        public void done(ParseException e) {
+            if (e != null) {
+                Log.e(TAG, "Error while saving", e);
+                Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
+            }
+            Log.i(TAG, getString(R.string.user_save_successful));
+            getDialog().dismiss();
+        }
+    });
+     ```
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
