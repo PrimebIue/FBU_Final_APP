@@ -124,6 +124,7 @@ User
 Hobby
 
 | Property   | Type    | Description |
+| ------------- | -------- | ------------|
 | objectId      | String   | unique id for the hobby |
 | createdAt     | DateTime | date when post is created (default field) |
 | updatedAt     | DateTime | date when post is last updated (default field) |
