@@ -1,12 +1,10 @@
 package com.fbu.icebreaker.fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +18,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.R;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class EditProfileFragment extends DialogFragment {
 

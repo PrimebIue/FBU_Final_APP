@@ -1,7 +1,5 @@
 package com.fbu.icebreaker.fragments;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -13,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +36,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,7 +118,6 @@ public class CreateNewHobby extends DialogFragment {
                 }
 
                 GoogleDescriptionSearchAsyncTask descriptionSearchTask = new GoogleDescriptionSearchAsyncTask();
-
 
                 // Execute google searches
                 imageSearchTask.execute(urlImage);
@@ -346,7 +340,6 @@ public class CreateNewHobby extends DialogFragment {
                 e.printStackTrace();
             }
             workCounter.taskFinished();
-
         }
     }
 

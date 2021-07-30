@@ -3,7 +3,6 @@ package com.fbu.icebreaker;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.fbu.icebreaker.subclasses.Hobby;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;

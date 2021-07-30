@@ -2,7 +2,6 @@ package com.fbu.icebreaker.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.login.Login;
 import com.fbu.icebreaker.LoginActivity;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;

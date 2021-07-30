@@ -88,5 +88,4 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
         }
         return selected;
     }
-
 }
