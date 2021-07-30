@@ -94,7 +94,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * QR code screen
     * Qr code scanner
      * Profile of person you're pairing with
-      * Hobby pairing 
+        * Hobby pairing 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
