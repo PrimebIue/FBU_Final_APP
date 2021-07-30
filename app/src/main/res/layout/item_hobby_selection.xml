@@ -6,32 +6,17 @@
     android:id="@+id/rlHobbySelection">
 
     <TextView
-        android:id="@+id/tvTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_alignTop="@+id/tvHobbyName"
-        android:layout_marginStart="5dp"
-        android:text="🏉"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_marginLeft="5dp" />
-
-    <TextView
         android:id="@+id/tvHobbyName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:gravity="center"
-        android:textColor="@color/light_black"
+        android:textColor="@color/white"
         android:text="Test Hobby name"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:background="@drawable/round_text_background"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_200"/>
 
 
 

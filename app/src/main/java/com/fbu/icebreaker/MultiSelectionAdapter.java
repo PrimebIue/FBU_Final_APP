@@ -49,25 +49,22 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
 
         private final RelativeLayout rlHobbySelection;
         private TextView tvHobbyName;
-        private TextView tvEmoji;
 
         public MultiViewHolder(@NonNull View itemView) {
             super(itemView);
             rlHobbySelection = itemView.findViewById(R.id.rlHobbySelection);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
-            tvEmoji = itemView.findViewById(R.id.tvTag);
         }
 
         void bind(final Hobby hobby) {
-            rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.off_white));
+            tvHobbyName.getBackground().setTint(hobby.getChecked() ? ContextCompat.getColor(context, R.color.orange) : ContextCompat.getColor(context, R.color.light_blue));
             tvHobbyName.setText(hobby.getName());
-            tvEmoji.setText(hobby.getEmoji());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     hobby.setChecked(!hobby.getChecked());
-                    rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.off_white));
+                    tvHobbyName.getBackground().setTint(hobby.getChecked() ? ContextCompat.getColor(context, R.color.orange) : ContextCompat.getColor(context, R.color.light_blue));
                     Log.i(TAG, String.valueOf(hobby.getChecked()));
                 }
             });

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.icebreaker"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -55,6 +55,10 @@ dependencies {
     //Qr code reader
     implementation 'com.budiyev.android:code-scanner:2.1.0'
     compile 'com.github.kaedea:Android-Cloud-TagView-Plus:b546a5f073'
+
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.palette:palette:1.0.0"
+    implementation "androidx.percentlayout:percentlayout:1.0.0"
 
 }
 
