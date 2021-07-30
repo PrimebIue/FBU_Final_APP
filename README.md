@@ -136,7 +136,6 @@ Hobby
 
 
 ### Networking
-- [Add list of network requests by screen ]
 
 List of network requests by screen
 - Login Screen
@@ -371,7 +370,7 @@ List of network requests by screen
     }
     ```
 - Create hobby screen
-  - (Creat/HOBBY) Create new hobby in Parse
+  - (Create/HOBBY) Create new hobby in Parse
     ```swift
     private void saveNewHobby() {
 
@@ -402,6 +401,77 @@ List of network requests by screen
           }
       }
       ```
+- User hobby pairing screen
+  - (Read/GET) Query current user hobbies
+    ```swift
+    private void queryCurrUserHobbies() {
+      // Specify data to query
+      ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+      query.include("usersWithHobby");
+      query.whereEqualTo("usersWithHobby", user);
+      query.findInBackground(new FindCallback<Hobby>() {
+          @Override
+          public void done(List<Hobby> hobbies, ParseException e) {
+              // Check for errors
+              if (e != null) {
+                  Log.e(TAG, "Issue with getting hobbies.", e);
+              }
 
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+              for (Hobby hobby : qrHobbies) {
+                  Log.i(TAG, "qrHobbies" + hobby.getName());
+              }
+              for (Hobby hobby : hobbies) {
+                  Log.i(TAG, "allHobbies" + hobby.getName());
+                  if (!qrHobbies.contains(hobby))
+                      allHobbies.add(hobby);
+              }
+
+              adapter.notifyDataSetChanged();
+          }
+      });
+    }
+    ```
+  - (Read/GET) Query qr user's hobby
+    ```swift
+    private void queryQRHobbies() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.include("usersWithHobby");
+        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                qrHobbies.addAll(hobbies);
+
+                tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
+                queryCurrUserHobbies();
+            }
+        });
+    }
+    ```
+ 
+    
+#### [OPTIONAL:] Existing API Endpoints
+##### QR Code API
+- Base URL - [https://api.qrserver.com/v1/create-qr-code/](https://api.qrserver.com/v1/create-qr-code/)
+
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /?size=heightxwidth&data=String | define the size of the QR Code and create one with the specified string
+    
+##### Google Custom Search API
+- Base Url - [https://www.googleapis.com/customsearch/v1?q=]()
+- 
+  HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /v1?q=String | Search the String in the custom engine
+    `GET`    | &key=String   | API Key
+    `GET`    | &cx=String      | Custom Engine ID
+    `GET`    | &alt=FileType  | Requested type of File for response
+    `GET`    | &searchType=Image | Requested to search only for image results
+    
