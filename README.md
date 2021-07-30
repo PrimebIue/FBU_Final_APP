@@ -98,16 +98,42 @@ The app allows you to log in with your Facebook account and generates a QR code 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/CryptoHub_Wirefram.jpeg" width=600>
+<img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/IceBreaker_Wireframe.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+User
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user |
+   | username      | String   | User's username  |
+   | password      | String   | User's password  |
+   | email         | String   | User's email     |
+   | bio           | String   | User's Bio       |
+   | Profile Picture | File   | User's profile picture
+   | authData      | Object   | Contains the user's authentication data if they logged in with Facebook |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   
+Hobby
+
+| Property   | Type    | Description |
+| objectId      | String   | unique id for the hobby |
+| createdAt     | DateTime | date when post is created (default field) |
+| updatedAt     | DateTime | date when post is last updated (default field) |
+| name          | String   | Hobbby's name |
+| verified      | Boolean  | Determines if the hobby was revised by the developers |
+| hobbyDescription | String | Basic description of the hobby |
+| hobbyImage    | File     | Image of the hobby |
+| hobbyTags     | Array    | Contains basic descriptive tags of the hobby for pairing |
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
