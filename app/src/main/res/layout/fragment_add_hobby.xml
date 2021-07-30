@@ -49,7 +49,8 @@
         android:id="@+id/rvHobbySelector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvTitle"/>
+        android:layout_below="@+id/tvTitle"
+        android:layout_above="@+id/btnCreateNewHobby"/>
 
 
 </RelativeLayout>

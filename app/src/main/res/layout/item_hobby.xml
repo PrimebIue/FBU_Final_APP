@@ -17,27 +17,30 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp">
 
-        <TextView
+        <me.kaede.tagview.TagView
             android:id="@+id/tvTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_width="170dp"
+            android:layout_height="17dp"
+            android:layout_below="@+id/tvHobbyName"
+            app:lineMargin="1dp"
+            app:tagMargin="3dp"
             android:layout_marginStart="10dp"
-            android:text="🏉"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:layout_marginLeft="5dp"
-            android:layout_below="@+id/tvHobbyName"/>
+            app:textPaddingBottom="2dp"
+            app:textPaddingLeft="2dp"
+            app:textPaddingRight="2dp"
+            app:textPaddingTop="2dp"/>
 
         <TextView
             android:id="@+id/tvDescription"
-            android:layout_width="180dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTag"
             tools:text="@tools:sample/lorem/random"
-            android:layout_margin="5dp"
-            android:layout_marginStart="5dp"
-            android:textSize="12dp"/>
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="12dp"
+            android:maxLines="4"/>
 
         <TextView
             android:id="@+id/tvHobbyName"

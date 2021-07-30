@@ -4,6 +4,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import java.util.List;
+
 @ParseClassName("Hobby")
 public class Hobby extends ParseObject {
 
@@ -11,6 +13,7 @@ public class Hobby extends ParseObject {
     private static final String KEY_EMOJI = "emoji";
     private static final String KEY_IMAGE = "hobbyImage";
     private static final String KEY_DESCRIPTION = "hobbyDescription";
+    private static final String KEY_TAGS = "hobbyTags";
 
     private boolean isChecked = false;
 
@@ -28,4 +31,7 @@ public class Hobby extends ParseObject {
 
     public String getDescription() { return getString(KEY_DESCRIPTION); }
     public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
+
+    public List<String> getTags() { return getList(KEY_TAGS); }
+    public void setTags(List<String> tags) { put(KEY_TAGS, tags); }
 }

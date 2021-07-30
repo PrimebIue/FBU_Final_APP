@@ -1,6 +1,9 @@
 package com.fbu.icebreaker;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +20,15 @@ import com.fbu.icebreaker.subclasses.Hobby;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Random;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import me.kaede.tagview.Tag;
+import me.kaede.tagview.TagView;
 
 public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHolder> {
+
+    private static final String TAG = "HobbiesAdapter";
 
     private Context context;
     private List<Hobby> hobbies;
@@ -55,7 +63,7 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvHobbyName;
-        private TextView tvEmoji;
+        private TagView tvTags;
         private ImageView ivRemove;
         private ImageView ivHobbyImage;
         private TextView tvDescription;
@@ -63,7 +71,7 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
-            tvEmoji = itemView.findViewById(R.id.tvTag);
+            tvTags = itemView.findViewById(R.id.tvTag);
             ivRemove = itemView.findViewById(R.id.ivRemove);
             ivHobbyImage = itemView.findViewById(R.id.ivHobbyImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
@@ -71,8 +79,19 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
         public void bind(Hobby hobby) {
             tvHobbyName.setText(hobby.getName());
-            tvEmoji.setText(hobby.getEmoji());
+            tvTags.removeAllTags();
+            String[] tags = hobby.getTags().toArray(new String[0]);
+            for (String s : tags) {
+                Random rnd = new Random();
+                Tag tag = new Tag(s);
+                tag.tagTextSize = 10f;
+                tag.layoutColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                tvTags.addTag(tag);
+            }
+
             tvDescription.setText(hobby.getDescription());
+            tvDescription.setMaxLines(4);
+            tvDescription.setEllipsize(TextUtils.TruncateAt.END);
 
             final int radius = 30;
             final int margin = 10;
