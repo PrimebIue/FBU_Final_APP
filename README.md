@@ -46,7 +46,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 
 **Optional Nice-to-have Stories**
 
-* [ ] User can enter hobby editing mode by long clicking a Hobby
+* [ ] User can enter hobby removing mode by long clicking a Hobby
 * [ ] The app allows you to add the other person as a friend in Facebook through the app.
 * [ ] After checking for similarities, the app gives you conversation prompts.
 * [ ] App allows user to add a playlist from Spotify.
