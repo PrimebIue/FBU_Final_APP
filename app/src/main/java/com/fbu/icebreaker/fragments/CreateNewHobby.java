@@ -36,6 +36,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+
+import me.kaede.tagview.Tag;
+import me.kaede.tagview.TagView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,10 +49,15 @@ import java.net.URL;
 public class CreateNewHobby extends DialogFragment {
 
     private static final String TAG = "CreateNewHobby";
+    private static final String[] HOBBY_TAGS = new String[]{"Sport", "Endurance", "Art", "Esport", "Caring", "Instrument", "Music", "Extreme", "Handcraft", "Technology", "Building", "Outdoors", "Technical Skill"};
 
     private EditText etHobbyName;
     private Button btnCancelHobbyAdd;
     private Button btnAddHobby;
+    private TagView tvTagsToSelect;
+    private TagView tvTagsToSelect2;
+    private TagView tvTagsToSelect3;
+    private TagView tvTagsToSelect4;
 
     private static String result = null;
     private Integer responseCode = null;
@@ -73,11 +83,38 @@ public class CreateNewHobby extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getDialog().getWindow().setLayout(1100, 500);
+        getDialog().getWindow().setLayout(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
 
         etHobbyName = view.findViewById(R.id.etHobbyName);
         btnCancelHobbyAdd = view.findViewById(R.id.btnCancelHobbyAdd);
         btnAddHobby = view.findViewById(R.id.btnAddHobby);
+        tvTagsToSelect = view.findViewById(R.id.tvTagsToSelect);
+        tvTagsToSelect2 = view.findViewById(R.id.tvTagsToSelect2);
+        tvTagsToSelect3 = view.findViewById(R.id.tvTagsToSelect3);
+        tvTagsToSelect4 = view.findViewById(R.id.tvTagsToSelect4);
+
+        // Create the tags to select
+//        for (String s : HOBBY_TAGS) {
+//            Tag tag = new Tag(s);
+//            tag.tagTextSize = 12;
+//            tag.radius = 20;
+//            tvTagsToSelect.addTag(tag);
+//        }
+
+        for(int i = 0; i < HOBBY_TAGS.length; i++){
+            Tag tag = new Tag(HOBBY_TAGS[i]);
+            tag.tagTextSize = 12;
+            if (i <= 4)
+                tvTagsToSelect.addTag(tag);
+            else if (i <= 8)
+                tvTagsToSelect2.addTag(tag);
+            else if (i <= 11)
+                tvTagsToSelect3.addTag(tag);
+            else if (i <= 16)
+                tvTagsToSelect4.addTag(tag);
+
+        }
+
 
         btnCancelHobbyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
