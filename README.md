@@ -36,17 +36,22 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * [x] User's inputs are saved between sesions.
 * [x] The app can generate a QR code that links to the User's profile that another user with the app can scan.
 * [x] The user can input their hobbies/interests into a list (Recycler View).
+* [x] User can select hobbies by selecting them from a list or adding a new one if it is not yet created.
+* [x] User can when creating new hobbies select up to 4 tags that represent that hobby
+* [x] User can look at a list containing their hobbies and each hobby displays its tags using a custom library for visual polish.
+* [x] The app automatically adds an image and basic description to a newly created hobby using Custom Google Search API
+* [x] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the identical hobbies
 * [ ] User can zoom in into the qr code by using 2 finger gesture
-* [x] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the similarities.
-* [ ] The app allows you to add the other person as a friend in Facebook through the app.
+
 
 **Optional Nice-to-have Stories**
 
-
+* [ ] The app allows you to add the other person as a friend in Facebook through the app.
 * [ ] After checking for similarities, the app gives you conversation prompts.
-* [ ] The app allows you to access Facebook messenger. (Maybe)
-* [ ] The app allows you to create private hobbies/interests that are only displayed if the other person has the same hobby/interest
-* [ ] The app allows you to see a Timeline of your friends and see if anyone has added a new interest/hobby, if they recently added a friend, and Facebook posts from your friends related to any of your hobbies/interests.
+* [ ] App allows user to add a playlist from Spotify.
+* [ ] The app lets you see if someone scanned you code and allows to look at their profile.
+* [ ] Hobby pairing also pairs hobbies with the same tags and adds them to a grid view.
+* [ ] User can have a list of friends.
 
 
 ### 2. Screen Archetypes
@@ -56,29 +61,40 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * Registration Screen
    * Redirects the user to Facebook's registration
 * Interests list
-    * Allow the user to add interests/hobbies to a list
+    * User can look at a list of their current hobbies, with pictures and basic descriptions
+    * Allow the user to enter the add hobbies screen
+* Add Hobby screen
+    * Shows a list of hobbies which the user can pick from
+    * User can decide to enter the create hobby screen
+* Create hobby screen
+    * User can select a name for their new hobby
+    * User can select up to 4 tags that properly represent the hobby created and at least 1
 * QR code Screen
     * Generates a QR code with a link directly to the user's account and creates 
+* Profile Screen
+    * User can modify their description
+    * User can change their profile picture
+    * User can Logout
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-
 * Profile
 * QR code functionality
 * Hobby/Interest List
-* Camera (For QR read)
-
 
 **Flow Navigation** (Screen to Screen)
 
 * Login Screen
    * Hobby/Interest List
 * Hobby/Interest List
-   * Hobby/Interest details (After clicking on an item on the list)
-* QR code camera
-    * Hobby/Interest pairing (After scanning someone else's QR code.) 
+   * Add new hobby screen
+    * Create new hobby screen 
+* QR code screen
+    * Qr code scanner
+     * Profile of person you're pairing with
+      * Hobby pairing 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
