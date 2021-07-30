@@ -59,7 +59,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
         }
 
         void bind(final Hobby hobby) {
-            rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.gray_500));
+            rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.off_white));
             tvHobbyName.setText(hobby.getName());
             tvEmoji.setText(hobby.getEmoji());
 
@@ -67,7 +67,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
                 @Override
                 public void onClick(View v) {
                     hobby.setChecked(!hobby.getChecked());
-                    rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.gray_500));
+                    rlHobbySelection.setBackgroundColor(hobby.getChecked() ? ContextCompat.getColor(context, R.color.light_blue) : ContextCompat.getColor(context, R.color.off_white));
                     Log.i(TAG, String.valueOf(hobby.getChecked()));
                 }
             });

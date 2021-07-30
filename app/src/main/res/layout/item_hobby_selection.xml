@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_500"
+    android:background="@color/off_white_red"
     android:id="@+id/rlHobbySelection">
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_gravity="center_vertical"
         android:textSize="24sp"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/light_black"
         android:text="Test Hobby name"
         android:layout_margin="5dp"/>
 

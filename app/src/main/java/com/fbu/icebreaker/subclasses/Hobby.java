@@ -1,6 +1,7 @@
 package com.fbu.icebreaker.subclasses;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("Hobby")
@@ -8,6 +9,8 @@ public class Hobby extends ParseObject {
 
     private static final String KEY_NAME = "name";
     private static final String KEY_EMOJI = "emoji";
+    private static final String KEY_IMAGE = "hobbyImage";
+    private static final String KEY_DESCRIPTION = "hobbyDescription";
 
     private boolean isChecked = false;
 
@@ -19,4 +22,10 @@ public class Hobby extends ParseObject {
 
     public boolean getChecked() { return isChecked; }
     public void setChecked(boolean checked) { isChecked = checked; }
+
+    public String getImage() { return getParseFile("hobbyImage").getUrl(); }
+    public void setImage(ParseFile file) { put(KEY_IMAGE, file); }
+
+    public String getDescription() { return getString(KEY_DESCRIPTION); }
+    public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
 }

@@ -10,9 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.fbu.icebreaker.subclasses.Hobby;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHolder> {
 
@@ -51,17 +57,29 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
         private TextView tvHobbyName;
         private TextView tvEmoji;
         private ImageView ivRemove;
+        private ImageView ivHobbyImage;
+        private TextView tvDescription;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
             tvEmoji = itemView.findViewById(R.id.tvTag);
             ivRemove = itemView.findViewById(R.id.ivRemove);
+            ivHobbyImage = itemView.findViewById(R.id.ivHobbyImage);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
         }
 
         public void bind(Hobby hobby) {
             tvHobbyName.setText(hobby.getName());
             tvEmoji.setText(hobby.getEmoji());
+            tvDescription.setText(hobby.getDescription());
+
+            final int radius = 30;
+            final int margin = 10;
+            Glide.with(context)
+                    .load(hobby.getImage())
+                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .into(ivHobbyImage);
 
             ivRemove.setOnClickListener(v -> clickListener.onRemoveClicked(getAdapterPosition()));
         }

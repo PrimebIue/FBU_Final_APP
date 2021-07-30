@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.AddHobbyFragment"
-    android:background="@color/gray_500">
+    android:background="@color/off_white">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -14,7 +14,7 @@
         android:text="@string/select_hobbies"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/light_black"
         android:textSize="28dp"/>
 
 
