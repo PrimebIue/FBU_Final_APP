@@ -465,7 +465,7 @@ List of network requests by screen
     `GET`    | /?size=heightxwidth&data=String | define the size of the QR Code and create one with the specified string
     
 ##### Google Custom Search API
-- Base Url - [https://www.googleapis.com/customsearch/v1?q=]()
+- Base Url - [https://www.googleapis.com/customsearch/]()
 - 
   HTTP Verb | Endpoint | Description
    ----------|----------|------------
