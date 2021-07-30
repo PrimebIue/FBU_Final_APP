@@ -101,8 +101,11 @@ The app allows you to log in with your Facebook account and generates a QR code 
 <img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/IceBreaker_Wireframe.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/Digital_Wireframe.png" width=800>
 
 ### [BONUS] Interactive Prototype
+
+<img src='https://github.com/PrimebIue/FBU_Final_APP/blob/main/Interactive_Prototype.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Schema 
 
