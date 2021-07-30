@@ -139,7 +139,82 @@ Hobby
 - [Add list of network requests by screen ]
 
 List of network requests by screen
+- Login Screen
+  - (LOGIN) Login user with parse
+    ```swift
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to login user with email: " + username);
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with login", e);
+                    Toast.makeText(LoginActivity.this, R.string.login_issue, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                goMainActivity();
+                Toast.makeText(LoginActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    ```
+  - (LOGIN) Login user with Facebook
+    ```swift
+    btnLoginFB.setOnClickListener(v -> {
+         final ProgressDialog dialog = new ProgressDialog(this);
+         dialog.setTitle(getString(R.string.wait_moment));
+         dialog.setMessage(getString(R.string.login_in));
+         dialog.show();
+         Collection<String> permissions = Arrays.asList("public_profile", "email");
+         ParseFacebookUtils.logInWithReadPermissionsInBackground(this, permissions, (user, err) -> {
+             dialog.dismiss();
+             if (err != null) {
+                 Log.e(TAG, "done: ", err);
+                 Toast.makeText(this, err.getMessage(), Toast.LENGTH_LONG).show();
+             } else if (user == null) {
+                 Toast.makeText(this, R.string.cancel_fb_login, Toast.LENGTH_LONG).show();
+                 Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
+             } else if (user.isNew()) {
+                 Toast.makeText(this, R.string.sign_login_facebook, Toast.LENGTH_LONG).show();
+                 Log.d(TAG, "User signed up and logged in through Facebook!");
+                 getUserDetailFromFB();
+             } else {
+                 Toast.makeText(this, R.string.login_facebook, Toast.LENGTH_LONG).show();
+                 Log.d(TAG, "User logged in through Facebook!");
+                 showAlert(getString(R.string.oh_you), getString(R.string.welcome_back));
+             }
+         });
+     });
+     ```
+- Sign Up screen
+  - (Create/USER) Creates new parse user
+    ```swift
+    // Create Parse user
+    ParseUser user = new ParseUser();
 
+    // Get strings from edit text
+    String username = etUsername.getText().toString();
+    String password = etPassword.getText().toString();
+    String email = etEmail.getText().toString();
+    // Set core properties
+    user.setUsername(username);
+    user.setPassword(password);
+    user.setEmail(email);
+    // invoke signup
+    user.signUpInBackground(new SignUpCallback() {
+        @Override
+        public void done(ParseException e) {
+            if (e != null) {
+                Log.e(TAG, "Issue with SignUp", e);
+                Toast.makeText(SignUpActivity.this, R.string.sign_up_issue, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Toast.makeText(SignUpActivity.this, R.string.successful_sign_up, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    });
+    ```
+    
 - Profile screen
   - (Read/GET) Query user information
       ```swift
@@ -192,5 +267,141 @@ List of network requests by screen
         }
     });
      ```
+- Hobbies list screen
+  - (Read/GET) Query user's hobbies
+    ```swift
+    private void queryHobbies() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.include("usersWithHobby");
+        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+     ```
+  - (Read/GET) Query an update for user's hobbies
+     ```swift
+     private void queryHobbiesUpdate() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.include("usersWithHobby");
+        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                allHobbies.clear();
+                adapter.notifyDataSetChanged();
+
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+    ```
+- Add Hobbies screen
+  - (Read/GET) Get all hobbies in database
+    ```swift
+    private void queryHobbies() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+    ```
+  - (Read/GET) Query an update for hobbies
+     ```swift
+     private void queryHobbiesUpdate() {
+        // Specify data to query
+        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        query.findInBackground(new FindCallback<Hobby>() {
+            @Override
+            public void done(List<Hobby> hobbies, ParseException e) {
+                // Check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting hobbies.", e);
+                }
+
+                allHobbies.clear();
+                adapter.notifyDataSetChanged();
+
+                for (Hobby hobby : hobbies) {
+                    Log.i(TAG, "Hobby: " + hobby.getName());
+                }
+                Log.i(TAG, "Gets here" + hobbies);
+                allHobbies.addAll(hobbies);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+    ```
+- Create hobby screen
+  - (Creat/HOBBY) Create new hobby in Parse
+    ```swift
+    private void saveNewHobby() {
+
+          // Set hobby name
+          Hobby hobby = new Hobby();
+          hobby.setDescription(hobbyDescription);
+          hobby.setName(etHobbyName.getText().toString());
+          hobby.setTags(newHobbyTags);
+
+          if (image != null)
+              hobby.setImage(image);
+
+          if (newHobbyTags.size() != 0) {
+              hobby.saveInBackground(new SaveCallback() {
+                  @Override
+                  public void done(ParseException e) {
+                      if (e != null) {
+                          Log.e(TAG, "Error while saving hobby.", e);
+                          Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
+                      }
+                      Log.i(TAG, "Hobby save successful");
+                      getDialog().dismiss();
+                  }
+              });
+          } else {
+              Toast.makeText(getContext(), "Sorry, add at least 1 tag.", Toast.LENGTH_SHORT).show();
+              getDialog().dismiss();
+          }
+      }
+      ```
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
