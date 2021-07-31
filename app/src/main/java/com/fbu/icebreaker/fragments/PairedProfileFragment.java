@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +75,7 @@ public class PairedProfileFragment extends Fragment {
         rvPairedHobbies.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
-        
+
         assert getArguments() != null;
         String userId = getArguments().getString("userId");
 
@@ -90,7 +91,7 @@ public class PairedProfileFragment extends Fragment {
         tvBio.setText(user.getString("bio"));
 
         Glide.with(this)
-                .load(user.getParseFile("profilePicture").getUrl())
+                .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
         Log.i(TAG, "NEW VERSION");
@@ -102,25 +103,21 @@ public class PairedProfileFragment extends Fragment {
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", user);
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                for (Hobby hobby : qrHobbies) {
-                    Log.i(TAG, "qrHobbies" + hobby.getName());
-                }
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "allHobbies" + hobby.getName());
-                    if (!qrHobbies.contains(hobby))
-                        allHobbies.add(hobby);
-                }
-
-                adapter.notifyDataSetChanged();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+
+            for (Hobby hobby : qrHobbies) {
+                Log.i(TAG, "qrHobbies" + hobby.getName());
+            }
+            for (Hobby hobby : hobbies) {
+                Log.i(TAG, "allHobbies" + hobby.getName());
+                if (!qrHobbies.contains(hobby))
+                    allHobbies.add(hobby);
+            }
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -130,19 +127,15 @@ public class PairedProfileFragment extends Fragment {
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                qrHobbies.addAll(hobbies);
-
-                tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
-                queryCurrUserHobbies();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+            qrHobbies.addAll(hobbies);
+
+            tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
+            queryCurrUserHobbies();
         });
     }
 }

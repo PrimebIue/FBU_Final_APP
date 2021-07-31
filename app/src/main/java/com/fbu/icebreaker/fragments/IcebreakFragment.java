@@ -18,6 +18,8 @@ import com.fbu.icebreaker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseUser;
 
+import java.util.Objects;
+
 public class IcebreakFragment extends Fragment {
 
     private ImageView ivQRCode;
@@ -43,16 +45,13 @@ public class IcebreakFragment extends Fragment {
 
         final String qrCodeUrl = String.format("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=%s", ParseUser.getCurrentUser().getObjectId());
 
-        Glide.with(getContext())
+        Glide.with(requireContext())
                 .load(qrCodeUrl)
                 .into(ivQRCode);
 
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), QRScanActivity.class);
-                startActivity(i);
-            }
+        btnCamera.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), QRScanActivity.class);
+            startActivity(i);
         });
     }
 }

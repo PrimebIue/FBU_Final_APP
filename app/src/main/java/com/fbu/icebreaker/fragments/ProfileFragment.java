@@ -24,6 +24,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -75,45 +77,35 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
 
-        Glide.with(getContext())
-                .load(user.getParseFile("profilePicture").getUrl())
+        Glide.with(requireContext())
+                .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEditProfileDialog();
-            }
-        });
+        btnEditProfile.setOnClickListener(v -> addEditProfileDialog());
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
+        btnLogout.setOnClickListener(v -> {
+            ParseUser.logOut();
 
-                Intent i = new Intent(getActivity(), LoginActivity.class);
-                startActivity(i);
+            Intent i = new Intent(getActivity(), LoginActivity.class);
+            startActivity(i);
 
-                getActivity().finish();
-            }
+            requireActivity().finish();
         });
     }
 
     private void addEditProfileDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         EditProfileFragment editProfileFragment = new EditProfileFragment();
+        assert fragmentManager != null;
         editProfileFragment.show(fragmentManager, "editProfileFragment");
 
         fragmentManager.executePendingTransactions();
-        editProfileFragment.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                tvUsername.setText(ParseUser.getCurrentUser().getUsername());
-                tvBio.setText(ParseUser.getCurrentUser().getString("bio"));
-                Glide.with(getContext())
-                        .load(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl())
-                        .into(ivProfilePicture);
-            }
+        Objects.requireNonNull(editProfileFragment.getDialog()).setOnDismissListener(dialog -> {
+            tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+            tvBio.setText(ParseUser.getCurrentUser().getString("bio"));
+            Glide.with(requireContext())
+                    .load(Objects.requireNonNull(ParseUser.getCurrentUser().getParseFile("profilePicture")).getUrl())
+                    .into(ivProfilePicture);
         });
     }
 

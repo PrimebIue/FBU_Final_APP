@@ -63,24 +63,16 @@ public class QRScanActivity extends AppCompatActivity {
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String scannedUserId = result.getText();
-                        Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
-                        i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
-                        startActivity(i);
-                        finish();
-                    }
+                runOnUiThread(() -> {
+                    String scannedUserId = result.getText();
+                    Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
+                    i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
+                    startActivity(i);
+                    finish();
                 });
             }
         });
-        scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCodeScanner.startPreview();
-            }
-        });
+        scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
     }
 
     @Override

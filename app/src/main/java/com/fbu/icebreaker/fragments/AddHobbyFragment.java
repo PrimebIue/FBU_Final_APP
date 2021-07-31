@@ -30,6 +30,7 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +60,7 @@ public class AddHobbyFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getDialog().getWindow().setLayout(getResources().getDisplayMetrics().widthPixels - 30, getResources().getDisplayMetrics().heightPixels - 30);
+        Objects.requireNonNull(getDialog()).getWindow().setLayout(getResources().getDisplayMetrics().widthPixels - 30, getResources().getDisplayMetrics().heightPixels - 30);
 
         // Get field from view
         rvHobbySelector = view.findViewById(R.id.rvHobbySelector);
@@ -96,7 +97,7 @@ public class AddHobbyFragment extends DialogFragment {
                         });
                     }
                 }
-                getDialog().dismiss();
+                Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 
@@ -158,14 +159,10 @@ public class AddHobbyFragment extends DialogFragment {
     private void createHobbyFragment() {
         FragmentManager fragmentManager = getFragmentManager();
         CreateNewHobby createNewHobby = new CreateNewHobby();
+        assert fragmentManager != null;
         createNewHobby.show(fragmentManager, "createNewHobby");
 
         fragmentManager.executePendingTransactions();
-        createNewHobby.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                queryHobbiesUpdate();
-            }
-        });
+        Objects.requireNonNull(createNewHobby.getDialog()).setOnDismissListener(dialog -> queryHobbiesUpdate());
     }
 }

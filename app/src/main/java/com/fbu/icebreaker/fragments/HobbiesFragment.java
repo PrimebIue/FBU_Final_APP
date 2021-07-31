@@ -29,6 +29,7 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,44 +59,35 @@ public class HobbiesFragment extends Fragment {
         final RecyclerView rvHobbies = view.findViewById(R.id.rvHobbies);
         final FloatingActionButton btnAddHobby = view.findViewById(R.id.btnAddHobby);
 
-        HobbiesAdapter.OnClickListener onClickListener = new HobbiesAdapter.OnClickListener() {
-            @Override
-            public void onRemoveClicked(int position) {
-                Log.i(TAG, "Click at post position: " + position);
+        HobbiesAdapter.OnClickListener onClickListener = position -> {
+            Log.i(TAG, "Click at post position: " + position);
 
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
 
-                                allHobbies.get(position).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
-                                allHobbies.get(position).saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if (e != null) {
-                                            Log.e(TAG, "Error while removing hobby", e);
-                                            Toast.makeText(getContext(), getString(R.string.removing_hobby_error), Toast.LENGTH_SHORT).show();
-                                        }
-                                        Log.i(TAG, "Hobby removal successful");
-                                    }
-                                });
+                        allHobbies.get(position).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
+                        allHobbies.get(position).saveInBackground(e -> {
+                            if (e != null) {
+                                Log.e(TAG, "Error while removing hobby", e);
+                                Toast.makeText(getContext(), getString(R.string.removing_hobby_error), Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i(TAG, "Hobby removal successful");
+                        });
 
-                                queryHobbiesUpdate();
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                // do nothing
-                                break;
-                        }
-                    }
-                };
+                        queryHobbiesUpdate();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // do nothing
+                        break;
+                }
+            };
 
-                AlertDialog.Builder ab = new AlertDialog.Builder(getContext());
-                ab.setMessage(getString(R.string.remove_hobby_question))
-                        .setPositiveButton(R.string.remove, dialogClickListener)
-                        .setNegativeButton(R.string.Cancel, dialogClickListener)
-                        .show();
-            }
+            AlertDialog.Builder ab = new AlertDialog.Builder(getContext());
+            ab.setMessage(getString(R.string.remove_hobby_question))
+                    .setPositiveButton(R.string.remove, dialogClickListener)
+                    .setNegativeButton(R.string.Cancel, dialogClickListener)
+                    .show();
         };
         
         // Initialize the array
@@ -110,27 +102,18 @@ public class HobbiesFragment extends Fragment {
         rvHobbies.setLayoutManager(linearLayoutManager);
 
         // Click listener for adding hobbies
-        btnAddHobby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addHobbyDialog();
-            }
-        });
+        btnAddHobby.setOnClickListener(v -> addHobbyDialog());
         queryHobbies();
     }
 
     private void addHobbyDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         AddHobbyFragment addHobbyFragment = new AddHobbyFragment();
+        assert fragmentManager != null;
         addHobbyFragment.show(fragmentManager, "addHobbyFragment");
 
         fragmentManager.executePendingTransactions();
-        addHobbyFragment.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                queryHobbiesUpdate();
-            }
-        });
+        Objects.requireNonNull(addHobbyFragment.getDialog()).setOnDismissListener(dialog -> queryHobbiesUpdate());
     }
 
     private void queryHobbies() {
@@ -138,21 +121,18 @@ public class HobbiesFragment extends Fragment {
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
-                }
-                Log.i(TAG, "Gets here" + hobbies);
-                allHobbies.addAll(hobbies);
-                adapter.notifyDataSetChanged();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+
+            for (Hobby hobby : hobbies) {
+                Log.i(TAG, "Hobby: " + hobby.getName());
+            }
+            Log.i(TAG, "Gets here" + hobbies);
+            allHobbies.addAll(hobbies);
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -161,24 +141,21 @@ public class HobbiesFragment extends Fragment {
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                allHobbies.clear();
-                adapter.notifyDataSetChanged();
-
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
-                }
-                Log.i(TAG, "Gets here" + hobbies);
-                allHobbies.addAll(hobbies);
-                adapter.notifyDataSetChanged();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+
+            allHobbies.clear();
+            adapter.notifyDataSetChanged();
+
+            for (Hobby hobby : hobbies) {
+                Log.i(TAG, "Hobby: " + hobby.getName());
+            }
+            Log.i(TAG, "Gets here" + hobbies);
+            allHobbies.addAll(hobbies);
+            adapter.notifyDataSetChanged();
         });
     }
 }

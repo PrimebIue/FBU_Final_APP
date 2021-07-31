@@ -27,34 +27,28 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText etPassword = findViewById(R.id.etPassword);
         final Button btnSignUp = findViewById(R.id.btnSignUp);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create Parse user
-                ParseUser user = new ParseUser();
+        btnSignUp.setOnClickListener(v -> {
+            // Create Parse user
+            ParseUser user = new ParseUser();
 
-                // Get strings from edit text
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                String email = etEmail.getText().toString();
-                // Set core properties
-                user.setUsername(username);
-                user.setPassword(password);
-                user.setEmail(email);
-                // invoke signup
-                user.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Issue with SignUp", e);
-                            Toast.makeText(SignUpActivity.this, R.string.sign_up_issue, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Toast.makeText(SignUpActivity.this, R.string.successful_sign_up, Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-            }
+            // Get strings from edit text
+            String username = etUsername.getText().toString();
+            String password = etPassword.getText().toString();
+            String email = etEmail.getText().toString();
+            // Set core properties
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            // invoke signup
+            user.signUpInBackground(e -> {
+                if (e != null) {
+                    Log.e(TAG, "Issue with SignUp", e);
+                    Toast.makeText(SignUpActivity.this, R.string.sign_up_issue, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(SignUpActivity.this, R.string.successful_sign_up, Toast.LENGTH_SHORT).show();
+                finish();
+            });
         });
     }
 }

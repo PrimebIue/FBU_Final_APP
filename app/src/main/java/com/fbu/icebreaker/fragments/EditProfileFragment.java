@@ -21,6 +21,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Objects;
+
 public class EditProfileFragment extends DialogFragment {
 
     private static final String TAG = "DialogFragment";
@@ -55,18 +57,13 @@ public class EditProfileFragment extends DialogFragment {
         ParseUser user = ParseUser.getCurrentUser();
 
         Glide.with(this)
-                .load(user.getParseFile("profilePicture").getUrl())
+                .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
         etUsername.setText(user.getUsername());
         etDescription.setText(user.getString("bio"));
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submit();
-            }
-        });
+        btnSubmit.setOnClickListener(v -> submit());
     }
 
     private void submit() {
@@ -95,16 +92,13 @@ public class EditProfileFragment extends DialogFragment {
         user.setUsername(username);
         user.put("bio", description);
 
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
-                }
-                Log.i(TAG, getString(R.string.user_save_successful));
-                getDialog().dismiss();
+        user.saveInBackground(e -> {
+            if (e != null) {
+                Log.e(TAG, "Error while saving", e);
+                Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
             }
+            Log.i(TAG, getString(R.string.user_save_successful));
+            Objects.requireNonNull(getDialog()).dismiss();
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.fbu.icebreaker.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -40,6 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.Tag;
@@ -69,9 +71,9 @@ public class CreateNewHobby extends DialogFragment {
 
     private ParseFile image = null;
     private String hobbyDescription = "";
-    private ArrayList<String> newHobbyTags = new ArrayList<String>();
+    private final ArrayList<String> newHobbyTags = new ArrayList<String>();
 
-    private WorkCounter workCounter = new WorkCounter(2);
+    private final WorkCounter workCounter = new WorkCounter(2);
 
     public CreateNewHobby() {
         // Required empty public constructor
@@ -88,7 +90,7 @@ public class CreateNewHobby extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getDialog().getWindow().setLayout(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
+        Objects.requireNonNull(getDialog()).getWindow().setLayout(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
 
         etHobbyName = view.findViewById(R.id.etHobbyName);
         btnCancelHobbyAdd = view.findViewById(R.id.btnCancelHobbyAdd);
@@ -109,7 +111,7 @@ public class CreateNewHobby extends DialogFragment {
                 tvTagsToSelect2.addTag(tag);
             else if (i <= 11)
                 tvTagsToSelect3.addTag(tag);
-            else if (i <= 16)
+            else
                 tvTagsToSelect4.addTag(tag);
         }
 
@@ -152,7 +154,7 @@ public class CreateNewHobby extends DialogFragment {
         btnCancelHobbyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 
@@ -167,7 +169,8 @@ public class CreateNewHobby extends DialogFragment {
                 searchString = searchString.replace(" ", "+");
 
                 // Generate link for google image search
-                String urlImageString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json" + "&searchType=image";
+                String urlImageString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json" + "&'" +
+                        "'image";
                 URL urlImage = null;
                 try {
                     urlImage = new URL(urlImageString);
@@ -208,27 +211,24 @@ public class CreateNewHobby extends DialogFragment {
             hobby.setImage(image);
 
         if (newHobbyTags.size() != 0) {
-            hobby.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        Log.e(TAG, "Error while saving hobby.", e);
-                        Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
-                    }
-                    Log.i(TAG, "Hobby save successful");
-                    getDialog().dismiss();
+            hobby.saveInBackground(e -> {
+                if (e != null) {
+                    Log.e(TAG, "Error while saving hobby.", e);
+                    Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
                 }
+                Log.i(TAG, "Hobby save successful");
+                Objects.requireNonNull(getDialog()).dismiss();
             });
         } else {
             Toast.makeText(getContext(), "Sorry, add at least 1 tag.", Toast.LENGTH_SHORT).show();
-            getDialog().dismiss();
+            Objects.requireNonNull(getDialog()).dismiss();
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class GoogleImageSearchAsyncTask extends AsyncTask<URL, Integer, String> {
 
         protected void onPreExecute(){
-
             Log.d(TAG, "AsyncTask - onPreExecute");
             // show mProgressBar
         }
@@ -248,6 +248,7 @@ public class CreateNewHobby extends DialogFragment {
             }
 
             try {
+                assert conn != null;
                 responseCode = conn.getResponseCode();
                 responseMessage = conn.getResponseMessage();
             } catch (IOException e) {
@@ -265,7 +266,7 @@ public class CreateNewHobby extends DialogFragment {
                     String line;
 
                     while ((line = rd.readLine()) != null) {
-                        sb.append(line + "\n");
+                        sb.append(line).append("\n");
                     }
                     rd.close();
                     conn.disconnect();
@@ -316,6 +317,7 @@ public class CreateNewHobby extends DialogFragment {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class GoogleDescriptionSearchAsyncTask extends AsyncTask<URL, Integer, String>{
 
         protected void onPreExecute(){
@@ -338,6 +340,7 @@ public class CreateNewHobby extends DialogFragment {
             }
 
             try {
+                assert conn != null;
                 responseCode = conn.getResponseCode();
                 responseMessage = conn.getResponseMessage();
             } catch (IOException e) {
@@ -355,7 +358,7 @@ public class CreateNewHobby extends DialogFragment {
                     String line;
 
                     while ((line = rd.readLine()) != null) {
-                        sb.append(line + "\n");
+                        sb.append(line).append("\n");
                     }
                     rd.close();
                     conn.disconnect();
@@ -372,7 +375,6 @@ public class CreateNewHobby extends DialogFragment {
                     Log.e(TAG, errorMsg);
                     result = errorMsg;
                     return  result;
-
                 }
             } catch (IOException e) {
                 Log.e(TAG, "Http Response ERROR " + e.toString());
@@ -382,7 +384,7 @@ public class CreateNewHobby extends DialogFragment {
         }
 
         protected void onProgressUpdate(Integer... progress) {
-            Log.d(TAG, "AsyncTask - onProgressUpdate, progress=" + progress);
+            Log.d(TAG, "AsyncTask - onProgressUpdate, progress=" + Arrays.toString(progress));
         }
 
         protected void onPostExecute(String result) {
@@ -397,8 +399,8 @@ public class CreateNewHobby extends DialogFragment {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class AsyncGettingBitmapFromUrl extends AsyncTask<String, Void, Bitmap> {
-
 
         @Override
         protected Bitmap doInBackground(String... params) {
@@ -410,8 +412,7 @@ public class CreateNewHobby extends DialogFragment {
                 connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                bitmap = myBitmap;
+                bitmap = BitmapFactory.decodeStream(input);
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -450,10 +451,9 @@ public class CreateNewHobby extends DialogFragment {
         matrix.postScale(scaleWidth, scaleHeight);
 
         // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height,
-                matrix, false);
 
-        return resizedBitmap;
+        return Bitmap.createBitmap(bm, 0, 0, width, height,
+                matrix, false);
     }
 
     public class WorkCounter {

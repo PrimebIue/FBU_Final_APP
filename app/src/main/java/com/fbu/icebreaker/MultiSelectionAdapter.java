@@ -47,12 +47,10 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
 
     class MultiViewHolder extends RecyclerView.ViewHolder {
 
-        private final RelativeLayout rlHobbySelection;
-        private TextView tvHobbyName;
+        private final TextView tvHobbyName;
 
         public MultiViewHolder(@NonNull View itemView) {
             super(itemView);
-            rlHobbySelection = itemView.findViewById(R.id.rlHobbySelection);
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
         }
 

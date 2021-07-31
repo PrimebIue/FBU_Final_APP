@@ -5,6 +5,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import java.util.List;
+import java.util.Objects;
 
 @ParseClassName("Hobby")
 public class Hobby extends ParseObject {
@@ -26,7 +27,7 @@ public class Hobby extends ParseObject {
     public boolean getChecked() { return isChecked; }
     public void setChecked(boolean checked) { isChecked = checked; }
 
-    public String getImage() { return getParseFile("hobbyImage").getUrl(); }
+    public String getImage() { return Objects.requireNonNull(getParseFile("hobbyImage")).getUrl(); }
     public void setImage(ParseFile file) { put(KEY_IMAGE, file); }
 
     public String getDescription() { return getString(KEY_DESCRIPTION); }
