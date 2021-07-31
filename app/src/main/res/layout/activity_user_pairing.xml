@@ -7,86 +7,13 @@
     tools:context=".UserPairingActivity"
     android:background="@color/off_white">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivProfilePicture"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        tools:src="@tools:sample/avatars"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"/>
+    <include
+        layout="@layout/tab_toolbar_layout"/>
 
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ivProfilePicture"
-        android:gravity="center"
-        android:layout_alignTop="@+id/ivProfilePicture"
-        android:layout_alignBottom="@id/ivProfilePicture"
-        android:textColor="@color/light_black"
-        android:text="TestProfileName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tvHobbiesNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/tvHobbiesText"
-        android:text="10"
-        android:layout_marginTop="15dp"
-
-        android:layout_marginBottom="-30dp"
-        android:gravity="center"
-        android:layout_alignLeft="@+id/tvHobbiesText"
-        android:layout_alignRight="@id/tvHobbiesText"
-        android:textStyle="bold"
-        android:textColor="@color/light_black"/>
-
-    <TextView
-        android:id="@+id/tvHobbiesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/light_black"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/tvUsername"
-        android:layout_alignTop="@+id/tvUsername"
-        android:gravity="center"
-        android:text="Hobbies"
-        android:layout_marginEnd="40dp"/>
-
-    <TextView
-        android:id="@+id/tvBio"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:layout_below="@id/tvHobbiesText"
-        tools:text="@tools:sample/lorem/random"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/light_black"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/tvHobbiesInCommon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBio"
-        android:text="Hobbies in common!"
-        android:layout_margin="5dp"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/light_black"
-        android:gravity="center"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPairedHobbies"
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvHobbiesInCommon"
-        />
+        android:id="@+id/pager"
+        android:layout_below="@+id/tbTab"/>
 
 </RelativeLayout>

@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IceBreaker">
-        <activity android:name=".UserPairingActivity"></activity>
+        <activity android:name=".UserPairingActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity android:name=".QRScanActivity" />
         <activity android:name=".SignUpActivity" /> <!-- Back4App setup -->
         <meta-data

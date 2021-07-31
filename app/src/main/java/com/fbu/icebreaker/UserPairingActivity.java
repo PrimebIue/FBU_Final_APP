@@ -1,8 +1,10 @@
 package com.fbu.icebreaker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.media.Image;
 import android.os.Bundle;
@@ -26,109 +28,23 @@ public class UserPairingActivity extends AppCompatActivity {
 
     private static final String TAG = "UserPairingActivity";
 
-    private ImageView ivProfilePicture;
-    private TextView tvUsername;
-    private TextView tvHobbiesNumber;
-    private TextView tvBio;
-    private ParseUser user;
-    private List<Hobby> allHobbies;
-    private List<Hobby> qrHobbies;
-
-    private HobbiesAdapter adapter;
-    private RecyclerView rvPairedHobbies;
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_pairing);
 
-        ivProfilePicture = findViewById(R.id.ivProfilePicture);
-        tvUsername = findViewById(R.id.tvUsername);
-        tvBio = findViewById(R.id.tvBio);
-        tvHobbiesNumber = findViewById(R.id.tvHobbiesNumber);
-        allHobbies = new ArrayList<>();
-        qrHobbies = new ArrayList<>();
-
-        HobbiesAdapter.OnClickListener onClickListener = new HobbiesAdapter.OnClickListener() {
-            @Override
-            public void onRemoveClicked(int position) {
-
-            }
-        };
-
-        rvPairedHobbies = findViewById(R.id.rvPairedHobbies);
-        adapter = new HobbiesAdapter(this, allHobbies, onClickListener);
-        rvPairedHobbies.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rvPairedHobbies.setLayoutManager(linearLayoutManager);
+        toolbar = findViewById(R.id.tbTab);
+        viewPager = findViewById(R.id.pager);
 
         final String userId = getIntent().getStringExtra("userid");
 
-        ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
-        userQuery.whereEqualTo("objectId", userId);
-        try {
-            user = userQuery.find().get(0);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        setSupportActionBar(toolbar);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), userId);
+        viewPager.setAdapter(viewPagerAdapter);
 
-        tvUsername.setText(user.getUsername());
-        tvBio.setText(user.getString("bio"));
-
-        Glide.with(this)
-                .load(user.getParseFile("profilePicture").getUrl())
-                .into(ivProfilePicture);
-
-        Log.i(TAG, "NEW VERSION");
-        queryQRHobbies();
-    }
-
-    private void queryCurrUserHobbies() {
-        // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.include("usersWithHobby");
-        query.whereEqualTo("usersWithHobby", user);
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                for (Hobby hobby : qrHobbies) {
-                    Log.i(TAG, "qrHobbies" + hobby.getName());
-                }
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "allHobbies" + hobby.getName());
-                    if (!qrHobbies.contains(hobby))
-                        allHobbies.add(hobby);
-                }
-                
-                adapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    private void queryQRHobbies() {
-
-        // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.include("usersWithHobby");
-        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                qrHobbies.addAll(hobbies);
-
-                tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
-                queryCurrUserHobbies();
-            }
-        });
     }
 }
