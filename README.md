@@ -46,6 +46,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 
 **Optional Nice-to-have Stories**
 
+* [ ] User can enter hobby removing mode by long clicking a Hobby
 * [ ] The app allows you to add the other person as a friend in Facebook through the app.
 * [ ] After checking for similarities, the app gives you conversation prompts.
 * [ ] App allows user to add a playlist from Spotify.
@@ -101,8 +102,11 @@ The app allows you to log in with your Facebook account and generates a QR code 
 <img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/IceBreaker_Wireframe.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://github.com/PrimebIue/FBU_Final_APP/blob/main/Digital_Wireframe.png" width=800>
 
 ### [BONUS] Interactive Prototype
+
+<img src='https://github.com/PrimebIue/FBU_Final_APP/blob/main/Interactive_Prototype.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Schema 
 
