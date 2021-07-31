@@ -1,4 +1,4 @@
-package com.fbu.icebreaker;
+package com.fbu.icebreaker.adapters;
 
 import android.os.Bundle;
 

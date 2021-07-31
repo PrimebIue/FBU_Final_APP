@@ -1,6 +1,5 @@
 package com.fbu.icebreaker.fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.fbu.icebreaker.MultiSelectionAdapter;
+import com.fbu.icebreaker.adapters.MultiSelectionAdapter;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

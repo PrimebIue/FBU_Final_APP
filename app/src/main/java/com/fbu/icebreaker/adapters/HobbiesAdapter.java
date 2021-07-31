@@ -1,4 +1,4 @@
-package com.fbu.icebreaker;
+package com.fbu.icebreaker.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
 
 import java.util.List;
