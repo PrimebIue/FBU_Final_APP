@@ -41,7 +41,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * [x] User can look at a list containing their hobbies and each hobby displays its tags using a custom library for visual polish.
 * [x] The app automatically adds an image and basic description to a newly created hobby using Custom Google Search API
 * [x] After scanning the QR code the app checks for similarities between each User's hobbies/interests and displays the identical hobbies
-* [ ] User can zoom in into the qr code by using 2 finger gesture
+* [x] User can zoom in into the qr code by using 2 finger gesture
 
 
 **Optional Nice-to-have Stories**
