@@ -51,7 +51,7 @@ The app allows you to log in with your Facebook account and generates a QR code 
 * [ ] After checking for similarities, the app gives you conversation prompts.
 * [ ] App allows user to add a playlist from Spotify.
 * [ ] The app lets you see if someone scanned you code and allows to look at their profile.
-* [ ] Hobby pairing also pairs hobbies with the same tags and adds them to a grid view.
+* [x] Hobby pairing also pairs hobbies with the same tags and adds them to a Recycler View with an inner Recycler view showing hobbies with that tag that either user has
 * [ ] User can have a list of friends.
 
 
