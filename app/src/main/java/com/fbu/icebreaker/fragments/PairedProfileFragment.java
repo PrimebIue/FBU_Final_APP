@@ -19,15 +19,19 @@ import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,8 +45,9 @@ public class PairedProfileFragment extends Fragment {
     private TextView tvHobbiesNumber;
     private TextView tvBio;
     private ParseUser user;
-    private List<Hobby> allHobbies;
+    private List<Hobby> userHobbies;
     private List<Hobby> qrHobbies;
+    private List<Hobby> allHobbies;
 
     private HobbiesAdapter adapter;
     private RecyclerView rvPairedHobbies;
@@ -66,8 +71,13 @@ public class PairedProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.tvUsername);
         tvBio = view.findViewById(R.id.tvBio);
         tvHobbiesNumber = view.findViewById(R.id.tvHobbiesNumber);
+
         allHobbies = new ArrayList<>();
+        userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
+
+        userHobbies = (List<Hobby>) getArguments().getSerializable("userHobbies");
+        qrHobbies = (List<Hobby>) getArguments().getSerializable("qrHobbies");
 
         rvPairedHobbies = view.findViewById(R.id.rvPairedHobbies);
         adapter = new HobbiesAdapter(getContext(), allHobbies, null);
@@ -76,15 +86,7 @@ public class PairedProfileFragment extends Fragment {
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
 
         assert getArguments() != null;
-        String userId = getArguments().getString("userId");
-
-        ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
-        userQuery.whereEqualTo("objectId", userId);
-        try {
-            user = userQuery.find().get(0);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        user = getArguments().getParcelable("user");
 
         tvUsername.setText(user.getUsername());
         tvBio.setText(user.getString("bio"));
@@ -93,48 +95,24 @@ public class PairedProfileFragment extends Fragment {
                 .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
-        Log.i(TAG, "NEW VERSION");
-        queryQRHobbies();
+        getEqualHobbies();
     }
 
-    private void queryCurrUserHobbies() {
-        // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.include("usersWithHobby");
-        query.whereEqualTo("usersWithHobby", user);
-        query.findInBackground((hobbies, e) -> {
-            // Check for errors
-            if (e != null) {
-                Log.e(TAG, "Issue with getting hobbies.", e);
-            }
+    private void getEqualHobbies() {
 
-            for (Hobby hobby : qrHobbies) {
-                Log.i(TAG, "qrHobbies" + hobby.getName());
-            }
-            for (Hobby hobby : hobbies) {
-                Log.i(TAG, "allHobbies" + hobby.getName());
-                if (!qrHobbies.contains(hobby))
-                    allHobbies.add(hobby);
-            }
-            adapter.notifyDataSetChanged();
-        });
+        // Use set so that .contains is an O(1) operation and keep a time complexity of O(n)
+        // Considering the creation of the set O(2n)
+        Set<String> setQr = new HashSet<>();
+
+        for (Hobby hobby : qrHobbies) {
+            setQr.add(hobby.getObjectId());
+        }
+
+        for (Hobby hobby : userHobbies) {
+            if (setQr.contains(hobby.getObjectId()))
+                allHobbies.add(hobby);
+        }
+        adapter.notifyDataSetChanged();
     }
 
-    private void queryQRHobbies() {
-
-        // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.include("usersWithHobby");
-        query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
-        query.findInBackground((hobbies, e) -> {
-            // Check for errors
-            if (e != null) {
-                Log.e(TAG, "Issue with getting hobbies.", e);
-            }
-            qrHobbies.addAll(hobbies);
-
-            tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
-            queryCurrUserHobbies();
-        });
-    }
 }

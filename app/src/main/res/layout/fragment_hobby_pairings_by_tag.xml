@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HobbyPairingsByTagFragment"
+    android:background="@color/off_white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:text="Similar hobbies per tag."/>
+
+    <GridView
+        android:id="@+id/gvHobbyPairings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="200dp"
+        android:minHeight="200dp"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:layout_below="@id/tvTitle"/>
+
+</RelativeLayout>

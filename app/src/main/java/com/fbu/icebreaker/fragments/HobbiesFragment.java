@@ -127,7 +127,6 @@ public class HobbiesFragment extends Fragment {
             for (Hobby hobby : hobbies) {
                 Log.i(TAG, "Hobby: " + hobby.getName());
             }
-            Log.i(TAG, "Gets here" + hobbies);
             allHobbies.addAll(hobbies);
             adapter.notifyDataSetChanged();
         });

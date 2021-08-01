@@ -27,7 +27,7 @@ public class UserPairingActivity extends AppCompatActivity {
         final String userId = getIntent().getStringExtra("userid");
 
         setSupportActionBar(toolbar);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), userId);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), userId, 3);
         viewPager.setAdapter(viewPagerAdapter);
 
     }

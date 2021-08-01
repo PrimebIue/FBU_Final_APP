@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.PairingsByTag;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
-public class GridHobbyPairingAdapter extends RecyclerView.Adapter<GridHobbyPairingAdapter.ViewHolder> {
+public class GridHobbyPairingAdapter extends BaseAdapter {
 
     Context context;
     List<PairingsByTag> pairingsByTags;
@@ -23,31 +27,41 @@ public class GridHobbyPairingAdapter extends RecyclerView.Adapter<GridHobbyPairi
         this.pairingsByTags = pairingsByTags;
     }
 
-    @NonNull
     @Override
-    public GridHobbyPairingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_hobby, parent, false);
-        return new ViewHolder(itemView, context);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull GridHobbyPairingAdapter.ViewHolder holder, int position) {
-        PairingsByTag pairingByTag = pairingsByTags.get(position);
-        holder.bind(pairingByTag);
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return pairingsByTags.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Object getItem(int position) {
+        return pairingsByTags.get(position);
+    }
 
-        public ViewHolder(View itemView, Context context) {
-            super(itemView);
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        RecyclerView rvHobbiesPairing;
+        TextView tvPairTag;
+        PairedHobbiesByTagAdapter adapter;
+
+        if (convertView == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.item_grid_hobby, null);
         }
 
-        public void bind(PairingsByTag pairingByTag) {
-        }
+        rvHobbiesPairing = convertView.findViewById(R.id.rvHobbiesPairing);
+        tvPairTag = convertView.findViewById(R.id.tvPairTag);
+
+        adapter = new PairedHobbiesByTagAdapter(context, pairingsByTags.get(position).getPairedHobbies());
+        rvHobbiesPairing.setAdapter(adapter);
+
+        tvPairTag.setText(pairingsByTags.get(position).getPairedTag());
+
+        return convertView;
     }
 }

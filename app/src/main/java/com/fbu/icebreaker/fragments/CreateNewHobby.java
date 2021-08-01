@@ -169,8 +169,7 @@ public class CreateNewHobby extends DialogFragment {
                 searchString = searchString.replace(" ", "+");
 
                 // Generate link for google image search
-                String urlImageString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json" + "&'" +
-                        "'image";
+                String urlImageString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json" + "&searchType=" + "image";
                 URL urlImage = null;
                 try {
                     urlImage = new URL(urlImageString);
@@ -179,7 +178,6 @@ public class CreateNewHobby extends DialogFragment {
                 }
 
                 GoogleImageSearchAsyncTask imageSearchTask = new GoogleImageSearchAsyncTask();
-
 
                 // Generate link to get hobby description
                 String urlString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json";
