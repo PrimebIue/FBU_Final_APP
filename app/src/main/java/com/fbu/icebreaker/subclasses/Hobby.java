@@ -1,5 +1,7 @@
 package com.fbu.icebreaker.subclasses;
 
+import android.os.Parcelable;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -8,21 +10,17 @@ import java.util.List;
 import java.util.Objects;
 
 @ParseClassName("Hobby")
-public class Hobby extends ParseObject {
+public class Hobby extends ParseObject implements Parcelable {
 
     private static final String KEY_NAME = "name";
-    private static final String KEY_EMOJI = "emoji";
     private static final String KEY_IMAGE = "hobbyImage";
     private static final String KEY_DESCRIPTION = "hobbyDescription";
     private static final String KEY_TAGS = "hobbyTags";
 
-    private boolean isChecked = false;
+    public boolean isChecked = false;
 
     public String getName() { return getString(KEY_NAME); }
     public void setName(String name) { put(KEY_NAME, name); }
-
-    public String getEmoji() { return getString(KEY_EMOJI); }
-    public void setEmoji(String emoji) { put(KEY_EMOJI, emoji); }
 
     public boolean getChecked() { return isChecked; }
     public void setChecked(boolean checked) { isChecked = checked; }

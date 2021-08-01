@@ -76,8 +76,9 @@ public class PairedProfileFragment extends Fragment {
         userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
 
-        userHobbies = (List<Hobby>) getArguments().getSerializable("userHobbies");
-        qrHobbies = (List<Hobby>) getArguments().getSerializable("qrHobbies");
+        assert getArguments() != null;
+        userHobbies = getArguments().getParcelableArrayList("userHobbies");
+        qrHobbies = getArguments().getParcelableArrayList("qrHobbies");
 
         rvPairedHobbies = view.findViewById(R.id.rvPairedHobbies);
         adapter = new HobbiesAdapter(getContext(), allHobbies, null);
@@ -114,5 +115,4 @@ public class PairedProfileFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
-
 }

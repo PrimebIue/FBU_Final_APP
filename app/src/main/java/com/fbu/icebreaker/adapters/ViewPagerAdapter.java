@@ -1,6 +1,7 @@
 package com.fbu.icebreaker.adapters;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.fbu.icebreaker.fragments.ConversationStartersFragment;
 import com.fbu.icebreaker.fragments.HobbyPairingsByTagFragment;
 import com.fbu.icebreaker.fragments.PairedProfileFragment;
 import com.fbu.icebreaker.subclasses.Hobby;
@@ -49,6 +51,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         PairedProfileFragment pairedProfileFragment = new PairedProfileFragment();
         HobbyPairingsByTagFragment hobbyPairingsByTagFragment = new HobbyPairingsByTagFragment();
+        ConversationStartersFragment conversationStartersFragment = new ConversationStartersFragment();
 
         userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
@@ -63,11 +66,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             e.printStackTrace();
         }
 
-
         Bundle bundle = new Bundle();
         bundle.putString(USERID_KEY, userId);
-        bundle.putSerializable(USER_HOBBIES_KEY, (Serializable) userHobbies);
-        bundle.putSerializable(QR_HOBBIES_KEY, (Serializable) qrHobbies);
+        bundle.putParcelableArrayList(USER_HOBBIES_KEY, (ArrayList<? extends Parcelable>) userHobbies);
+        bundle.putParcelableArrayList(QR_HOBBIES_KEY, (ArrayList<? extends Parcelable>) qrHobbies);
         bundle.putParcelable(USER_KEY, user);
 
         switch (position) {
@@ -78,8 +80,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 hobbyPairingsByTagFragment.setArguments(bundle);
                 return hobbyPairingsByTagFragment;
             case 2:
-                pairedProfileFragment.setArguments(bundle);
-                return new PairedProfileFragment();
+                conversationStartersFragment.setArguments(bundle);
+                return conversationStartersFragment;
             default:
                 return null;
         }

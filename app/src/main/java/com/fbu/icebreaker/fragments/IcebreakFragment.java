@@ -16,13 +16,14 @@ import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.QRScanActivity;
 import com.fbu.icebreaker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ortiz.touchview.TouchImageView;
 import com.parse.ParseUser;
 
 import java.util.Objects;
 
 public class IcebreakFragment extends Fragment {
 
-    private ImageView ivQRCode;
+    private TouchImageView ivQRCode;
     private FloatingActionButton btnCamera;
 
     public IcebreakFragment() {
@@ -49,6 +50,9 @@ public class IcebreakFragment extends Fragment {
                 .load(qrCodeUrl)
                 .into(ivQRCode);
 
+        ivQRCode.setMinZoom(0.1f);
+        ivQRCode.setZoom(0.3f);
+        
         btnCamera.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), QRScanActivity.class);
             startActivity(i);

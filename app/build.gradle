@@ -65,5 +65,6 @@ dependencies {
     implementation "androidx.palette:palette:1.0.0"
     implementation "androidx.percentlayout:percentlayout:1.0.0"
 
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 }
 
