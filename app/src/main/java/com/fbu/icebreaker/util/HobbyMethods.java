@@ -1,4 +1,4 @@
-package com.fbu.icebreaker.hobbyPairingLogic;
+package com.fbu.icebreaker.util;
 
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.fbu.icebreaker.subclasses.PairingsByTag;

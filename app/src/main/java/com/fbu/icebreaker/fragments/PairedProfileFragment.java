@@ -17,17 +17,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.R;
-import com.fbu.icebreaker.hobbyPairingLogic.HobbyMethods;
+import com.fbu.icebreaker.util.HobbyMethods;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.

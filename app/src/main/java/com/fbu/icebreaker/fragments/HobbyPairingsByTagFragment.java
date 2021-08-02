@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbyPairingAdapter;
-import com.fbu.icebreaker.hobbyPairingLogic.HobbyMethods;
+import com.fbu.icebreaker.util.HobbyMethods;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.fbu.icebreaker.subclasses.PairingsByTag;
 
@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
