@@ -32,11 +32,8 @@ public class HobbyMethods {
         List<Hobby> equalHobbies = getEqualHobbies(hobbies1, hobbies2);
         Hashtable<String, List<Hobby>> userHobbiesPerTag = new Hashtable<>();
         Hashtable<String, List<Hobby>> qrHobbiesPerTag = new Hashtable<>();
-        Set<Hobby> setAlreadyPairedHobbies = new HashSet<>();
 
-        for (Hobby hobby : equalHobbies) {
-            setAlreadyPairedHobbies.add(hobby);
-        }
+        Set<Hobby> setAlreadyPairedHobbies = new HashSet<>(equalHobbies);
 
         for (Hobby hobby : hobbies1) {
             if (!setAlreadyPairedHobbies.contains(hobby)) {
@@ -82,7 +79,7 @@ public class HobbyMethods {
             currPairing.setPairedHobbies(qrHobbiesPerTag.get(tag));
             pairingsByTags.add(currPairing);
         }
-        
+
         return pairingsByTags;
     }
 }
