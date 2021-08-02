@@ -1,7 +1,6 @@
 package com.fbu.icebreaker.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,9 +19,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapter.ViewHolder> {
+
     private static final String TAG = "HobbyPairingAdapter";
 
     private Context context;
+
     private List<PairingsByTag> pairingsByTags;
 
     public HobbyPairingAdapter(Context context, List<PairingsByTag> pairingsByTags) {
@@ -76,14 +77,10 @@ public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapte
                 }
 
                 @Override
-                public void onTouchEvent(@NonNull @NotNull RecyclerView rv, @NonNull @NotNull MotionEvent e) {
-
-                }
+                public void onTouchEvent(@NonNull @NotNull RecyclerView rv, @NonNull @NotNull MotionEvent e) {}
 
                 @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                }
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
             };
             rvHobbiesPairing.addOnItemTouchListener(mScrollTouchListener);
             rvHobbiesPairing.setAdapter(adapter);

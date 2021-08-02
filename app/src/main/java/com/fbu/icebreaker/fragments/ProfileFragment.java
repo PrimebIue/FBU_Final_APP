@@ -1,6 +1,5 @@
 package com.fbu.icebreaker.fragments;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,13 +30,11 @@ import java.util.Objects;
  */
 public class ProfileFragment extends Fragment {
 
-    private static final String TAG = "ProfileFragment";
-
     private ImageView ivProfilePicture;
 
-    private TextView tvUsername;
-    private TextView tvHobbiesNumber;
     private TextView tvBio;
+    private TextView tvHobbiesNumber;
+    private TextView tvUsername;
 
     private Button btnEditProfile;
     private Button btnLogout;
@@ -108,6 +105,4 @@ public class ProfileFragment extends Fragment {
                     .into(ivProfilePicture);
         });
     }
-
-
 }

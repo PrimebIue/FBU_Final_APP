@@ -2,7 +2,6 @@ package com.fbu.icebreaker.adapters;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,23 +18,24 @@ import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final String TAG = "ViewPagerAdapter";
+
     private static final String USERID_KEY = "userId";
     private static final String USER_HOBBIES_KEY = "userHobbies";
     private static final String QR_HOBBIES_KEY = "qrHobbies";
     private static final String USER_KEY = "user";
 
-    private final String userId;
     private final int numOfTabs;
 
-    private List<Hobby> userHobbies;
+    private final String userId;
+
     private List<Hobby> qrHobbies;
+    private List<Hobby> userHobbies;
 
     private ParseUser user;
 

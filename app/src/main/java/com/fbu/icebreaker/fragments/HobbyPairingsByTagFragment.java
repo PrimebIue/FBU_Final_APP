@@ -6,13 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbyPairingAdapter;
@@ -32,13 +30,14 @@ import java.util.Set;
  */
 public class HobbyPairingsByTagFragment extends Fragment {
 
-    private RecyclerView rvHobbyPairings;
     private HobbyPairingAdapter adapter;
 
-    private List<Hobby> userHobbies;
     private List<Hobby> qrHobbies;
+    private List<Hobby> userHobbies;
 
     private List<PairingsByTag> pairingsByTag;
+
+    private RecyclerView rvHobbyPairings;
 
     private Set<Hobby> setAlreadyPairedHobbies;
 
@@ -131,7 +130,6 @@ public class HobbyPairingsByTagFragment extends Fragment {
     }
 
     private void getEqualHobbies() {
-
         // Use set so that .contains is an O(1) operation and keep a time complexity of O(n)
         // Considering the creation of the set O(2n)
         Set<String> setQr = new HashSet<>();

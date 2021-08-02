@@ -43,7 +43,7 @@
         android:layout_below="@+id/tvHobbiesNumber"
         android:layout_centerHorizontal="true"
         android:textColor="@color/light_black"
-        android:text="Hobbies"/>
+        android:text="@string/hobbies"/>
 
     <TextView
         android:id="@+id/tvBio"
@@ -64,7 +64,7 @@
         android:id="@+id/btnEditProfile"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         android:textColor="@color/white"
         android:layout_alignParentLeft="true"
         android:backgroundTint="@color/light_blue"
@@ -76,7 +76,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Logout"
+        android:text="@string/logout"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/light_blue"

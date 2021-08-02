@@ -38,11 +38,11 @@ public class AddHobbyFragment extends DialogFragment {
 
     private static final String TAG = "AddHobbyFragment";
 
-    private RecyclerView rvHobbySelector;
-    private List<Hobby> allHobbies;
     private MultiSelectionAdapter adapter;
+    private List<Hobby> allHobbies;
     private FloatingActionButton btnAdd;
     private Button btnCreateNewHobby;
+    private RecyclerView rvHobbySelector;
 
     public AddHobbyFragment() {
         // Required empty public constructor
@@ -62,9 +62,9 @@ public class AddHobbyFragment extends DialogFragment {
         Objects.requireNonNull(getDialog()).getWindow().setLayout(getResources().getDisplayMetrics().widthPixels - 30, getResources().getDisplayMetrics().heightPixels - 30);
 
         // Get field from view
-        rvHobbySelector = view.findViewById(R.id.rvHobbySelector);
         btnAdd = view.findViewById(R.id.btnAdd);
         btnCreateNewHobby = view.findViewById(R.id.btnCreateNewHobby);
+        rvHobbySelector = view.findViewById(R.id.rvHobbySelector);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHobbySelector.setLayoutManager(layoutManager);
@@ -75,37 +75,25 @@ public class AddHobbyFragment extends DialogFragment {
 
         queryHobbies();
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (adapter.getSelected().size() > 0) {
+        btnAdd.setOnClickListener(v -> {
+            if (adapter.getSelected().size() > 0) {
 
-                    // TODO -- Only update hobby relation not create new hobby
-                    for (int i = 0; i < adapter.getSelected().size(); i++) {
+                for (int i = 0; i < adapter.getSelected().size(); i++) {
 
-                        adapter.getSelected().get(i).getRelation("usersWithHobby").add(ParseUser.getCurrentUser());
-                        adapter.getSelected().get(i).saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                if (e != null) {
-                                    Log.e(TAG, "Error while saving hobby.", e);
-                                    Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
-                                }
-                                Log.i(TAG, "Hobby save successful");
-                            }
-                        });
-                    }
+                    adapter.getSelected().get(i).getRelation("usersWithHobby").add(ParseUser.getCurrentUser());
+                    adapter.getSelected().get(i).saveInBackground(e -> {
+                        if (e != null) {
+                            Log.e(TAG, "Error while saving hobby.", e);
+                            Toast.makeText(getContext(), R.string.saving_error, Toast.LENGTH_SHORT).show();
+                        }
+                        Log.i(TAG, "Hobby save successful");
+                    });
                 }
-                Objects.requireNonNull(getDialog()).dismiss();
             }
+            Objects.requireNonNull(getDialog()).dismiss();
         });
 
-        btnCreateNewHobby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createHobbyFragment();
-            }
-        });
+        btnCreateNewHobby.setOnClickListener(v -> createHobbyFragment());
     }
 
     private void queryHobbies() {
@@ -113,45 +101,39 @@ public class AddHobbyFragment extends DialogFragment {
         // TODO -- This currently gets all hobbies, it eventually has to only include hobbies the user doesn't already have
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
-                }
-                Log.i(TAG, "Gets here" + hobbies);
-                allHobbies.addAll(hobbies);
-                adapter.notifyDataSetChanged();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+
+            for (Hobby hobby : hobbies) {
+                Log.i(TAG, "Hobby: " + hobby.getName());
+            }
+            Log.i(TAG, "Gets here" + hobbies);
+            allHobbies.addAll(hobbies);
+            adapter.notifyDataSetChanged();
         });
     }
 
     private void queryHobbiesUpdate() {
         // Specify data to query
         ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
-        query.findInBackground(new FindCallback<Hobby>() {
-            @Override
-            public void done(List<Hobby> hobbies, ParseException e) {
-                // Check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting hobbies.", e);
-                }
-
-                allHobbies.clear();
-                adapter.notifyDataSetChanged();
-
-                for (Hobby hobby : hobbies) {
-                    Log.i(TAG, "Hobby: " + hobby.getName());
-                }
-                Log.i(TAG, "Gets here" + hobbies);
-                allHobbies.addAll(hobbies);
-                adapter.notifyDataSetChanged();
+        query.findInBackground((hobbies, e) -> {
+            // Check for errors
+            if (e != null) {
+                Log.e(TAG, "Issue with getting hobbies.", e);
             }
+
+            allHobbies.clear();
+            adapter.notifyDataSetChanged();
+
+            for (Hobby hobby : hobbies) {
+                Log.i(TAG, "Hobby: " + hobby.getName());
+            }
+            Log.i(TAG, "Gets here" + hobbies);
+            allHobbies.addAll(hobbies);
+            adapter.notifyDataSetChanged();
         });
     }
 

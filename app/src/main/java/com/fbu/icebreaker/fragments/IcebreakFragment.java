@@ -23,8 +23,9 @@ import java.util.Objects;
 
 public class IcebreakFragment extends Fragment {
 
-    private TouchImageView ivQRCode;
     private FloatingActionButton btnCamera;
+
+    private TouchImageView ivQRCode;
 
     public IcebreakFragment() {
         // Required empty public constructor
@@ -52,7 +53,7 @@ public class IcebreakFragment extends Fragment {
 
         ivQRCode.setMinZoom(0.1f);
         ivQRCode.setZoom(0.3f);
-        
+
         btnCamera.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), QRScanActivity.class);
             startActivity(i);

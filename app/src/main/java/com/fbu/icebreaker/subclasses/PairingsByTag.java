@@ -4,8 +4,8 @@ import java.util.List;
 
 public class PairingsByTag {
 
-    private String pairedTag;
     private List<Hobby> pairedHobbies;
+    private String pairedTag;
 
     public String getPairedTag() { return pairedTag; }
     public void setPairedTag(String tag) { pairedTag = tag; }

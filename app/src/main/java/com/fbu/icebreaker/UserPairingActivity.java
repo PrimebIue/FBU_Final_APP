@@ -10,11 +10,11 @@ import com.fbu.icebreaker.adapters.ViewPagerAdapter;
 
 public class UserPairingActivity extends AppCompatActivity {
 
-    private static final String TAG = "UserPairingActivity";
-
     private Toolbar toolbar;
-    private ViewPager viewPager;
+
     private ViewPagerAdapter viewPagerAdapter;
+
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,5 @@ public class UserPairingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), userId, 3);
         viewPager.setAdapter(viewPagerAdapter);
-
     }
 }

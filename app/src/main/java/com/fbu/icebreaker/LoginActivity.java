@@ -41,11 +41,11 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        final Button btnLoginFB = findViewById(R.id.btnLoginFB);
-        final EditText etUsername = findViewById(R.id.etUsername);
-        final EditText etPassword = findViewById(R.id.etPassword);
         final Button btnLogin = findViewById(R.id.btnLogin);
+        final Button btnLoginFB = findViewById(R.id.btnLoginFB);
         final Button btnRegister = findViewById(R.id.btnRegister);
+        final EditText etPassword = findViewById(R.id.etPassword);
+        final EditText etUsername = findViewById(R.id.etUsername);
 
         // Login with Facebook
         btnLoginFB.setOnClickListener(v -> {

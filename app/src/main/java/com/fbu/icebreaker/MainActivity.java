@@ -1,13 +1,11 @@
 package com.fbu.icebreaker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.fbu.icebreaker.fragments.HobbiesFragment;
 import com.fbu.icebreaker.fragments.IcebreakFragment;
@@ -22,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-
         final BottomNavigationView bottomNavigationView;
+
+        final FragmentManager fragmentManager = getSupportFragmentManager();
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 

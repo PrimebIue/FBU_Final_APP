@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -22,23 +19,23 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        final EditText etUsername = findViewById(R.id.etUsername);
+        final Button btnSignUp = findViewById(R.id.btnSignUp);
         final EditText etEmail = findViewById(R.id.etEmail);
         final EditText etPassword = findViewById(R.id.etPassword);
-        final Button btnSignUp = findViewById(R.id.btnSignUp);
+        final EditText etUsername = findViewById(R.id.etUsername);
 
         btnSignUp.setOnClickListener(v -> {
             // Create Parse user
             ParseUser user = new ParseUser();
 
             // Get strings from edit text
-            String username = etUsername.getText().toString();
-            String password = etPassword.getText().toString();
             String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String username = etUsername.getText().toString();
             // Set core properties
-            user.setUsername(username);
-            user.setPassword(password);
             user.setEmail(email);
+            user.setPassword(password);
+            user.setUsername(username);
             // invoke signup
             user.signUpInBackground(e -> {
                 if (e != null) {

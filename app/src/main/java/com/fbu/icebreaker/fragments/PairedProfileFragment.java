@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,10 @@ import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,6 +81,8 @@ public class PairedProfileFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
 
+        tvHobbiesNumber.setText(qrHobbies.size());
+
         assert getArguments() != null;
         user = getArguments().getParcelable("user");
 
@@ -100,7 +97,6 @@ public class PairedProfileFragment extends Fragment {
     }
 
     private void getEqualHobbies() {
-
         // Use set so that .contains is an O(1) operation and keep a time complexity of O(n)
         // Considering the creation of the set O(2n)
         Set<String> setQr = new HashSet<>();

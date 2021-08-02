@@ -22,6 +22,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
     private static final String TAG = "MultiSelectionAdapter";
 
     private final Context context;
+
     private List<Hobby> hobbies;
 
     public MultiSelectionAdapter(Context context, List<Hobby> hobbies) {
@@ -58,22 +59,15 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
             tvHobbyName.getBackground().setTint(hobby.getChecked() ? ContextCompat.getColor(context, R.color.orange) : ContextCompat.getColor(context, R.color.light_blue));
             tvHobbyName.setText(hobby.getName());
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    hobby.setChecked(!hobby.getChecked());
-                    tvHobbyName.getBackground().setTint(hobby.getChecked() ? ContextCompat.getColor(context, R.color.orange) : ContextCompat.getColor(context, R.color.light_blue));
-                    Log.i(TAG, String.valueOf(hobby.getChecked()));
-                }
+            itemView.setOnClickListener(v -> {
+                hobby.setChecked(!hobby.getChecked());
+                tvHobbyName.getBackground().setTint(hobby.getChecked() ? ContextCompat.getColor(context, R.color.orange) : ContextCompat.getColor(context, R.color.light_blue));
+                Log.i(TAG, String.valueOf(hobby.getChecked()));
             });
         }
     }
 
-    // Get all items selected
-    public List<Hobby> getAll() { return hobbies; }
-
     // Get selected when button is clicked
-
     public List<Hobby> getSelected() {
         List<Hobby> selected = new ArrayList<>();
         for (int i = 0; i < hobbies.size(); i++){

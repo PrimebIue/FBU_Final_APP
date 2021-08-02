@@ -36,6 +36,7 @@ public class HobbiesFragment extends Fragment {
     private static final String TAG = "HobbiesFragment";
     
     private HobbiesAdapter adapter;
+
     private List<Hobby> allHobbies;
 
     public HobbiesFragment() {

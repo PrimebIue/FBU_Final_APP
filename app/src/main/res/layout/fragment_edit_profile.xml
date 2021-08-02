@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ivProfilePicture"
         android:layout_centerHorizontal="true"
-        android:text="Change Profile Photo"
+        android:text="@string/change_profile_photo"
         android:textColor="@color/light_blue"
         android:backgroundTint="@color/white"/>
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etDescription"
         android:layout_centerHorizontal="true"
-        android:text="Submit Changes"
+        android:text="@string/submit_changes"
         android:textColor="@color/white"
         android:layout_marginTop="80dp"
         android:backgroundTint="@color/light_blue"/>

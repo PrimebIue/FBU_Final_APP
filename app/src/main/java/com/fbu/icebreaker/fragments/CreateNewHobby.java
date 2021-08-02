@@ -22,9 +22,7 @@ import android.widget.Toast;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
-import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,13 +32,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 import me.kaede.tagview.OnTagClickListener;
@@ -56,24 +52,30 @@ public class CreateNewHobby extends DialogFragment {
     private static final String TAG = "CreateNewHobby";
     private static final String[] HOBBY_TAGS = new String[]{"Sport", "Endurance", "Art", "Esport", "Caring", "Instrument", "Music", "Extreme", "Handcraft", "Technology", "Building", "Outdoors", "Technical Skill"};
 
+    private final ArrayList<String> newHobbyTags = new ArrayList<String>();
+    private final WorkCounter workCounter = new WorkCounter(2);
+
+    private static String result = null;
+
     private EditText etHobbyName;
-    private Button btnCancelHobbyAdd;
+
     private Button btnAddHobby;
+    private Button btnCancelHobbyAdd;
+
+    private TagView tvSelectedTags;
     private TagView tvTagsToSelect;
     private TagView tvTagsToSelect2;
     private TagView tvTagsToSelect3;
     private TagView tvTagsToSelect4;
-    private TagView tvSelectedTags;
 
-    private static String result = null;
-    private Integer responseCode = null;
+
+    private String hobbyDescription = "";
     private String responseMessage = "";
 
-    private ParseFile image = null;
-    private String hobbyDescription = "";
-    private final ArrayList<String> newHobbyTags = new ArrayList<String>();
+    private Integer responseCode = null;
 
-    private final WorkCounter workCounter = new WorkCounter(2);
+    private ParseFile image = null;
+
 
     public CreateNewHobby() {
         // Required empty public constructor
@@ -228,14 +230,13 @@ public class CreateNewHobby extends DialogFragment {
 
         protected void onPreExecute(){
             Log.d(TAG, "AsyncTask - onPreExecute");
-            // show mProgressBar
+            // Progress bar would go here
         }
         
         @Override
         protected String doInBackground(URL... urls) {
 
             URL url = urls[0];
-            // Log.d(TAG, "AsyncTask - doInBackground, url=" + url);
 
             // Http connection
             HttpURLConnection conn = null;
@@ -253,8 +254,6 @@ public class CreateNewHobby extends DialogFragment {
                 Log.e(TAG, "Http getting response code ERROR " + e.toString());
             }
 
-            // Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
-
             try {
                 if(responseCode != null && responseCode == 200) {
 
@@ -269,31 +268,26 @@ public class CreateNewHobby extends DialogFragment {
                     rd.close();
                     conn.disconnect();
                     result = sb.toString();
-                    // Log.d(TAG, "result=" + result);
-                    return result;
 
-                }else{
+                } else {
 
                     // response problem
                     String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Are you online ? " + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
                     Log.e(TAG, errorMsg);
                     result = errorMsg;
-                    return  result;
 
                 }
+                return result;
             } catch (IOException e) {
                 Log.e(TAG, "Http Response ERROR " + e.toString());
             }
             return null;
         }
 
-        protected void onProgressUpdate(Integer... progress) {
-            // Log.d(TAG, "AsyncTask - onProgressUpdate, progress=" + progress);
-        }
+        protected void onProgressUpdate(Integer... progress) {}
 
         protected void onPostExecute(String result) {
 
-            // Log.d(TAG, "AsyncTask - onPostExecute, result=" + result);
             String imageUrl = null;
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -320,7 +314,7 @@ public class CreateNewHobby extends DialogFragment {
 
         protected void onPreExecute(){
             Log.d(TAG, "AsyncTask - onPreExecute");
-            // show mProgressBar
+            // Progress bar would go here
         }
 
         @Override
@@ -377,7 +371,6 @@ public class CreateNewHobby extends DialogFragment {
             } catch (IOException e) {
                 Log.e(TAG, "Http Response ERROR " + e.toString());
             }
-
             return null;
         }
 
@@ -403,7 +396,7 @@ public class CreateNewHobby extends DialogFragment {
         @Override
         protected Bitmap doInBackground(String... params) {
 
-            Bitmap bitmap = null;
+            Bitmap bitmap;
             try {
                 URL url = new URL(params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -449,7 +442,6 @@ public class CreateNewHobby extends DialogFragment {
         matrix.postScale(scaleWidth, scaleHeight);
 
         // "RECREATE" THE NEW BITMAP
-
         return Bitmap.createBitmap(bm, 0, 0, width, height,
                 matrix, false);
     }

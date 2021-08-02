@@ -27,11 +27,13 @@ public class EditProfileFragment extends DialogFragment {
 
     private static final String TAG = "DialogFragment";
 
-    private ImageView ivProfilePicture;
-    private EditText etUsername;
-    private EditText etDescription;
     private Button btnProfilePhoto;
     private Button btnSubmit;
+
+    private EditText etDescription;
+    private EditText etUsername;
+
+    private ImageView ivProfilePicture;
 
     public EditProfileFragment() {
         // Required empty public constructor

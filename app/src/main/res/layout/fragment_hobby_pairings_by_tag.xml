@@ -14,7 +14,7 @@
         android:textSize="32dp"
         android:textStyle="bold"
         android:textColor="@color/light_black"
-        android:text="Similar hobbies per tag."/>
+        android:text="@string/similar_hobbies_per_tag"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHobbyPairings"

@@ -21,6 +21,7 @@ import java.util.Random;
 public class PairedIndividualHobbiesByTagAdapter extends RecyclerView.Adapter<PairedIndividualHobbiesByTagAdapter.ViewHolder> {
 
     List<Hobby> pairedHobbies;
+
     Context context;
 
     public PairedIndividualHobbiesByTagAdapter(Context context, List<Hobby> pairedHobbies) {

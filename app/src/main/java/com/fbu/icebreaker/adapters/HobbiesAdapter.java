@@ -29,8 +29,10 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
     private static final String TAG = "HobbiesAdapter";
 
     private Context context;
-    private List<Hobby> hobbies;
+
     private OnClickListener clickListener;
+
+    private List<Hobby> hobbies;
 
     public interface OnClickListener {
         void onRemoveClicked(int position);
@@ -63,19 +65,24 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvHobbyName;
-        private TagView tvTags;
+        private TextView tvDescription;
+
         private ImageView ivRemove;
         private ImageView ivHobbyImage;
-        private TextView tvDescription;
+
+        private TagView tvTags;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.i(TAG, "here");
+
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
-            tvTags = itemView.findViewById(R.id.tvTag);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
+
             ivRemove = itemView.findViewById(R.id.ivRemove);
             ivHobbyImage = itemView.findViewById(R.id.ivHobbyImage);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
+
+            tvTags = itemView.findViewById(R.id.tvTag);
         }
 
         public void bind(Hobby hobby) {

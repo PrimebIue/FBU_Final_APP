@@ -12,9 +12,9 @@ import java.util.Objects;
 @ParseClassName("Hobby")
 public class Hobby extends ParseObject implements Parcelable {
 
-    private static final String KEY_NAME = "name";
-    private static final String KEY_IMAGE = "hobbyImage";
     private static final String KEY_DESCRIPTION = "hobbyDescription";
+    private static final String KEY_IMAGE = "hobbyImage";
+    private static final String KEY_NAME = "name";
     private static final String KEY_TAGS = "hobbyTags";
 
     public boolean isChecked = false;

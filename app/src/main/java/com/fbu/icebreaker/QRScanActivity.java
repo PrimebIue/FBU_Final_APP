@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -18,10 +17,11 @@ import com.google.zxing.Result;
 public class QRScanActivity extends AppCompatActivity {
 
     private static final String SCANNED_USER_ID_ID = "userid";
-
     private static final int RC_PERMISSION = 10;
-    private CodeScanner mCodeScanner;
+
     private boolean mPermissionGranted;
+
+    private CodeScanner mCodeScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +60,13 @@ public class QRScanActivity extends AppCompatActivity {
     private void scanner() {
         CodeScannerView scannerView = findViewById(R.id.scannerView);
         mCodeScanner = new CodeScanner(this, scannerView);
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(() -> {
-                    String scannedUserId = result.getText();
-                    Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
-                    i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
-                    startActivity(i);
-                    finish();
-                });
-            }
-        });
+        mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
+            String scannedUserId = result.getText();
+            Intent i = new Intent(QRScanActivity.this, UserPairingActivity.class);
+            i.putExtra(SCANNED_USER_ID_ID, scannedUserId);
+            startActivity(i);
+            finish();
+        }));
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
     }
 
