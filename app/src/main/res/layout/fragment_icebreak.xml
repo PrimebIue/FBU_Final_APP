@@ -7,13 +7,25 @@
     tools:context=".fragments.IcebreakFragment"
     android:background="@color/off_white">
 
+    <EditText
+        android:id="@+id/etSearchUser"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/search_user"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp" />
+
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/ivQRCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_width="420dp"
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true"
         tools:src="@tools:sample/avatars" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnCamera"

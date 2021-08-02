@@ -47,7 +47,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
     <string name="hobbies_in_common">Hobbies in common!</string>
-    <string name="hobbies">Hobbies</string>
     <string name="similar_hobbies_per_tag">Similar hobbies per tag.</string>
     <string name="change_profile_photo">Change Profile Photo</string>
     <string name="submit_changes">Submit Changes</string>
@@ -63,9 +62,9 @@
     <string name="welcome_to_icebreaker">Welcome to Icebreaker!</string>
     <string name="log_in_to_start_breaking_the_ice">Log in to start breaking the ice!</string>
     <string name="password">Password</string>
-    <string name="username">Username</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="log_in">Log In</string>
     <string name="or">Or</string>
     <string name="register">Register</string>
+    <string name="search_user">Search User</string>
 </resources>

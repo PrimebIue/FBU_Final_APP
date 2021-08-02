@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbyPairingAdapter;
+import com.fbu.icebreaker.hobbyPairingLogic.HobbyMethods;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.fbu.icebreaker.subclasses.PairingsByTag;
 
@@ -31,6 +32,8 @@ import java.util.Set;
 public class HobbyPairingsByTagFragment extends Fragment {
 
     private HobbyPairingAdapter adapter;
+
+    private HobbyMethods hobbyMethods;
 
     private List<Hobby> qrHobbies;
     private List<Hobby> userHobbies;
@@ -60,6 +63,7 @@ public class HobbyPairingsByTagFragment extends Fragment {
         rvHobbyPairings.setHasFixedSize(true);
         final GridLayoutManager layout = new GridLayoutManager(getContext(), 2);
 
+        hobbyMethods = new HobbyMethods();
         userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
         pairingsByTag = new ArrayList<>();
@@ -75,72 +79,8 @@ public class HobbyPairingsByTagFragment extends Fragment {
         userHobbies = getArguments().getParcelableArrayList("userHobbies");
         qrHobbies = getArguments().getParcelableArrayList("qrHobbies");
 
-        getEqualHobbies();
-
-        Hashtable<String, List<Hobby>> userHobbiesPerTag = new Hashtable<>();
-
-        for (Hobby hobby : userHobbies) {
-            if (!setAlreadyPairedHobbies.contains(hobby)) {
-                for(String tag : hobby.getTags()) {
-                    List<Hobby> hobbyListTag;
-
-                    if (userHobbiesPerTag.get(tag) == null) {
-                        hobbyListTag = new ArrayList<>();
-                    } else {
-                        hobbyListTag = userHobbiesPerTag.get(tag);
-                    }
-                    hobbyListTag.add(hobby);
-                    userHobbiesPerTag.put(tag, hobbyListTag);
-                }
-            }
-        }
-
-        Hashtable<String, List<Hobby>> qrHobbiesPerTag = new Hashtable<>();
-
-        for (Hobby hobby : qrHobbies) {
-            if (!setAlreadyPairedHobbies.contains(hobby)) {
-                for (String tag : hobby.getTags()) {
-                    List<Hobby> qrHobbyListTag;
-
-                    if (userHobbiesPerTag.get(tag) != null) {
-                        if (qrHobbiesPerTag.get(tag) == null) {
-                            qrHobbyListTag = new ArrayList<>();
-                        } else {
-                            qrHobbyListTag = qrHobbiesPerTag.get(tag);
-                        }
-                        qrHobbyListTag.add(hobby);
-                        qrHobbiesPerTag.put(tag, qrHobbyListTag);
-                    }
-                }
-            }
-        }
-
-        for (String tag : qrHobbiesPerTag.keySet()) {
-
-            PairingsByTag currPairing = new PairingsByTag();
-
-            qrHobbiesPerTag.get(tag).addAll(userHobbiesPerTag.get(tag));
-
-            currPairing.setPairedTag(tag);
-            currPairing.setPairedHobbies(qrHobbiesPerTag.get(tag));
-            pairingsByTag.add(currPairing);
-        }
+        pairingsByTag.addAll(hobbyMethods.getSimilarHobbiesByTag(userHobbies, qrHobbies));
 
         adapter.notifyDataSetChanged();
-    }
-
-    private void getEqualHobbies() {
-        // Use set so that .contains is an O(1) operation and keep a time complexity of O(n)
-        // Considering the creation of the set O(2n)
-        Set<String> setQr = new HashSet<>();
-
-        for (Hobby hobby : qrHobbies) {
-            setQr.add(hobby.getObjectId());
-        }
-
-        for (Hobby hobby : userHobbies) {
-            if (setQr.contains(hobby.getObjectId()))
-                setAlreadyPairedHobbies.add(hobby);
-        }
     }
 }

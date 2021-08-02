@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.R;
+import com.fbu.icebreaker.hobbyPairingLogic.HobbyMethods;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.ParseUser;
 
@@ -35,11 +36,16 @@ public class PairedProfileFragment extends Fragment {
 
     private final static String TAG = "PairedProfileFragment";
 
+    private HobbyMethods hobbyMethods;
+
     private ImageView ivProfilePicture;
     private TextView tvUsername;
+
     private TextView tvHobbiesNumber;
     private TextView tvBio;
+
     private ParseUser user;
+
     private List<Hobby> userHobbies;
     private List<Hobby> qrHobbies;
     private List<Hobby> allHobbies;
@@ -63,6 +69,7 @@ public class PairedProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
+        rvPairedHobbies = view.findViewById(R.id.rvPairedHobbies);
         tvUsername = view.findViewById(R.id.tvUsername);
         tvBio = view.findViewById(R.id.tvBio);
         tvHobbiesNumber = view.findViewById(R.id.tvHobbiesNumber);
@@ -71,17 +78,18 @@ public class PairedProfileFragment extends Fragment {
         userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
 
+        hobbyMethods = new HobbyMethods();
+
         assert getArguments() != null;
         userHobbies = getArguments().getParcelableArrayList("userHobbies");
         qrHobbies = getArguments().getParcelableArrayList("qrHobbies");
 
-        rvPairedHobbies = view.findViewById(R.id.rvPairedHobbies);
         adapter = new HobbiesAdapter(getContext(), allHobbies, null);
         rvPairedHobbies.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
 
-        tvHobbiesNumber.setText(qrHobbies.size());
+        tvHobbiesNumber.setText(String.valueOf(qrHobbies.size()));
 
         assert getArguments() != null;
         user = getArguments().getParcelable("user");
@@ -93,22 +101,8 @@ public class PairedProfileFragment extends Fragment {
                 .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
-        getEqualHobbies();
-    }
+        allHobbies.addAll(hobbyMethods.getEqualHobbies(qrHobbies, userHobbies));
 
-    private void getEqualHobbies() {
-        // Use set so that .contains is an O(1) operation and keep a time complexity of O(n)
-        // Considering the creation of the set O(2n)
-        Set<String> setQr = new HashSet<>();
-
-        for (Hobby hobby : qrHobbies) {
-            setQr.add(hobby.getObjectId());
-        }
-
-        for (Hobby hobby : userHobbies) {
-            if (setQr.contains(hobby.getObjectId()))
-                allHobbies.add(hobby);
-        }
         adapter.notifyDataSetChanged();
     }
 }
