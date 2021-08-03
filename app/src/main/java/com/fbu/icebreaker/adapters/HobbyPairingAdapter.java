@@ -22,9 +22,9 @@ public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapte
 
     private static final String TAG = "HobbyPairingAdapter";
 
-    private Context context;
+    private final Context context;
 
-    private List<PairingsByTag> pairingsByTags;
+    private final List<PairingsByTag> pairingsByTags;
 
     public HobbyPairingAdapter(Context context, List<PairingsByTag> pairingsByTags) {
         this.context = context;
@@ -40,17 +40,19 @@ public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            PairingsByTag pairingsByTag = pairingsByTags.get(position);
-            holder.bind(pairingsByTag);
+        PairingsByTag pairingsByTag = pairingsByTags.get(position);
+        holder.bind(pairingsByTag);
     }
 
     @Override
-    public int getItemCount() { return pairingsByTags.size(); }
+    public int getItemCount() {
+        return pairingsByTags.size();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvPairTag;
-        private RecyclerView rvHobbiesPairing;
+        private final TextView tvPairTag;
+        private final RecyclerView rvHobbiesPairing;
         private PairedIndividualHobbiesByTagAdapter adapter;
 
         public ViewHolder(@NonNull View itemView) {
@@ -77,10 +79,12 @@ public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapte
                 }
 
                 @Override
-                public void onTouchEvent(@NonNull @NotNull RecyclerView rv, @NonNull @NotNull MotionEvent e) {}
+                public void onTouchEvent(@NonNull @NotNull RecyclerView rv, @NonNull @NotNull MotionEvent e) {
+                }
 
                 @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+                }
             };
             rvHobbiesPairing.addOnItemTouchListener(mScrollTouchListener);
             rvHobbiesPairing.setAdapter(adapter);

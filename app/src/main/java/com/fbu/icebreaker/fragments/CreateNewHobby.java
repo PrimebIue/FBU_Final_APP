@@ -4,14 +4,9 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.Hobby;
@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,7 +105,7 @@ public class CreateNewHobby extends DialogFragment {
         tvSelectedTags = view.findViewById(R.id.tvSelectedTags);
 
         // Had to use multiple TagView because it was impossible to fit the tags without modifying the library
-        for(int i = 0; i < HOBBY_TAGS.length; i++){
+        for (int i = 0; i < HOBBY_TAGS.length; i++) {
             Tag tag = new Tag(HOBBY_TAGS[i]);
             tag.tagTextSize = 12;
             if (i <= 4)
@@ -171,7 +172,19 @@ public class CreateNewHobby extends DialogFragment {
                 searchString = searchString.replace(" ", "+");
 
                 // Generate link for google image search
-                String urlImageString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json" + "&searchType=" + "image";
+
+                Uri.Builder builderImageUrl = new Uri.Builder();
+                builderImageUrl.scheme("https")
+                        .authority("www.googleapis.com")
+                        .appendPath("customsearch")
+                        .appendPath("v1")
+                        .appendQueryParameter("q", searchString)
+                        .appendQueryParameter("key", getString(R.string.google_search_api_key))
+                        .appendQueryParameter("cx", getString(R.string.search_engine_id))
+                        .appendQueryParameter("alt", "json")
+                        .appendQueryParameter("searchType", "image");
+                String urlImageString = builderImageUrl.build().toString();
+
                 URL urlImage = null;
                 try {
                     urlImage = new URL(urlImageString);
@@ -182,7 +195,20 @@ public class CreateNewHobby extends DialogFragment {
                 GoogleImageSearchAsyncTask imageSearchTask = new GoogleImageSearchAsyncTask();
 
                 // Generate link to get hobby description
-                String urlString = "https://www.googleapis.com/customsearch/v1?q=" + searchString + "&key=" + getString(R.string.google_search_api_key) + "&cx=" + getString(R.string.search_engine_id) + "&alt=json";
+
+                Uri.Builder builderDescriptionUrl = new Uri.Builder();
+                builderDescriptionUrl.scheme("https")
+                        .authority("www.googleapis.com")
+                        .appendPath("customsearch")
+                        .appendPath("v1")
+                        .appendQueryParameter("q", searchString)
+                        .appendQueryParameter("key", getString(R.string.google_search_api_key))
+                        .appendQueryParameter("cx", getString(R.string.search_engine_id))
+                        .appendQueryParameter("alt", "json");
+                String urlString = builderDescriptionUrl.build().toString();
+                Log.i("Test", urlString);
+
+
                 URL urlDescription = null;
                 try {
                     urlDescription = new URL(urlString);
@@ -228,11 +254,11 @@ public class CreateNewHobby extends DialogFragment {
     @SuppressLint("StaticFieldLeak")
     private class GoogleImageSearchAsyncTask extends AsyncTask<URL, Integer, String> {
 
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             Log.d(TAG, "AsyncTask - onPreExecute");
             // Progress bar would go here
         }
-        
+
         @Override
         protected String doInBackground(URL... urls) {
 
@@ -255,7 +281,7 @@ public class CreateNewHobby extends DialogFragment {
             }
 
             try {
-                if(responseCode != null && responseCode == 200) {
+                if (responseCode != null && responseCode == 200) {
 
                     // response OK
                     BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -284,7 +310,8 @@ public class CreateNewHobby extends DialogFragment {
             return null;
         }
 
-        protected void onProgressUpdate(Integer... progress) {}
+        protected void onProgressUpdate(Integer... progress) {
+        }
 
         protected void onPostExecute(String result) {
 
@@ -310,9 +337,9 @@ public class CreateNewHobby extends DialogFragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class GoogleDescriptionSearchAsyncTask extends AsyncTask<URL, Integer, String>{
+    private class GoogleDescriptionSearchAsyncTask extends AsyncTask<URL, Integer, String> {
 
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             Log.d(TAG, "AsyncTask - onPreExecute");
             // Progress bar would go here
         }
@@ -342,7 +369,7 @@ public class CreateNewHobby extends DialogFragment {
             Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
 
             try {
-                if(responseCode != null && responseCode == 200) {
+                if (responseCode != null && responseCode == 200) {
 
                     // response OK
                     BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -360,13 +387,13 @@ public class CreateNewHobby extends DialogFragment {
 
                     return result;
 
-                }else{
+                } else {
 
                     // response problem
                     String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Are you online ? " + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
                     Log.e(TAG, errorMsg);
                     result = errorMsg;
-                    return  result;
+                    return result;
                 }
             } catch (IOException e) {
                 Log.e(TAG, "Http Response ERROR " + e.toString());
@@ -418,11 +445,11 @@ public class CreateNewHobby extends DialogFragment {
 
             try {
                 if (bitmap != null) {
-                bitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth());
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] bitmapBytes = stream.toByteArray();
-                image = new ParseFile("myImage.png", bitmapBytes);
+                    bitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth());
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] bitmapBytes = stream.toByteArray();
+                    image = new ParseFile("myImage.png", bitmapBytes);
                 }
             } catch (NullPointerException e) {
                 Log.e(TAG, "Can't get image ", e);
@@ -452,6 +479,7 @@ public class CreateNewHobby extends DialogFragment {
         public WorkCounter(int numberOfTasks) {
             this.runningTasks = numberOfTasks;
         }
+
         // Only call this in onPostExecute! (or add synchronized to method declaration)
         public void taskFinished() {
             if (--runningTasks == 0) {

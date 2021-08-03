@@ -37,7 +37,7 @@ public class HobbyMethods {
 
         for (Hobby hobby : hobbies1) {
             if (!setAlreadyPairedHobbies.contains(hobby)) {
-                for(String tag : hobby.getTags()) {
+                for (String tag : hobby.getTags()) {
                     List<Hobby> hobbyListTag;
 
                     if (userHobbiesPerTag.get(tag) == null) {

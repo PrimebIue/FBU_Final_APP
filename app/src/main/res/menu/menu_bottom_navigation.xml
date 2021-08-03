@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/action_hobbies"
         android:icon="@drawable/outline_celebration_black_24dp"
         android:title="Home"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_icebreak"
@@ -21,7 +19,6 @@
         android:id="@+id/action_profile"
         android:icon="@drawable/outline_face_black_24dp"
         android:title="Profile"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
 </menu>

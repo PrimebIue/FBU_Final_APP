@@ -1,6 +1,12 @@
 package com.fbu.icebreaker.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,22 +16,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.fbu.icebreaker.adapters.MultiSelectionAdapter;
 import com.fbu.icebreaker.R;
+import com.fbu.icebreaker.adapters.MultiSelectionAdapter;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +96,7 @@ public class AddHobbyFragment extends DialogFragment {
 
         // TODO -- This currently gets all hobbies, it eventually has to only include hobbies the user doesn't already have
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.findInBackground((hobbies, e) -> {
             // Check for errors
             if (e != null) {
@@ -118,7 +114,7 @@ public class AddHobbyFragment extends DialogFragment {
 
     private void queryHobbiesUpdate() {
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.findInBackground((hobbies, e) -> {
             // Check for errors
             if (e != null) {

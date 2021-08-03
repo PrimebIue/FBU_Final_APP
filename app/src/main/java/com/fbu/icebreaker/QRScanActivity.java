@@ -1,18 +1,16 @@
 package com.fbu.icebreaker;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
-import com.google.zxing.Result;
 
 public class QRScanActivity extends AppCompatActivity {
 
@@ -31,7 +29,7 @@ public class QRScanActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 mPermissionGranted = false;
-                requestPermissions(new String[] {Manifest.permission.CAMERA}, RC_PERMISSION);
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, RC_PERMISSION);
             } else {
                 mPermissionGranted = true;
             }

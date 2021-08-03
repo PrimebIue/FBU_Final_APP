@@ -28,11 +28,11 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
     private static final String TAG = "HobbiesAdapter";
 
-    private Context context;
+    private final Context context;
 
-    private OnClickListener clickListener;
+    private final OnClickListener clickListener;
 
-    private List<Hobby> hobbies;
+    private final List<Hobby> hobbies;
 
     public interface OnClickListener {
         void onRemoveClicked(int position);
@@ -64,13 +64,13 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvHobbyName;
-        private TextView tvDescription;
+        private final TextView tvHobbyName;
+        private final TextView tvDescription;
 
-        private ImageView ivRemove;
-        private ImageView ivHobbyImage;
+        private final ImageView ivRemove;
+        private final ImageView ivHobbyImage;
 
-        private TagView tvTags;
+        private final TagView tvTags;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

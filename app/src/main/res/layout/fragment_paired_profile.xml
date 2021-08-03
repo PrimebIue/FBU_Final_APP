@@ -25,7 +25,7 @@
         android:text="TestProfileName"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvHobbiesNumber"
@@ -40,7 +40,7 @@
         android:layout_alignLeft="@+id/tvHobbiesText"
         android:layout_alignRight="@id/tvHobbiesText"
         android:textStyle="bold"
-        android:textColor="@color/light_black"/>
+        android:textColor="@color/light_black" />
 
     <TextView
         android:id="@+id/tvHobbiesText"
@@ -52,7 +52,7 @@
         android:layout_alignTop="@+id/tvUsername"
         android:gravity="center"
         android:text="@string/hobbies"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginEnd="40dp" />
 
     <TextView
         android:id="@+id/tvBio"
@@ -78,7 +78,7 @@
         android:textSize="24dp"
         android:textStyle="bold"
         android:textColor="@color/light_black"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPairedHobbies"

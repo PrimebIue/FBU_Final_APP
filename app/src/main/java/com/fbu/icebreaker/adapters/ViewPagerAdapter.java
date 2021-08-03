@@ -94,7 +94,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private void queryCurrUserHobbies() throws ParseException {
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
         userHobbies.addAll(query.find());
@@ -102,7 +102,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private void queryQRHobbies() throws ParseException {
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", user);
         qrHobbies.addAll(query.find());

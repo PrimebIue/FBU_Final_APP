@@ -23,7 +23,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
 
     private final Context context;
 
-    private List<Hobby> hobbies;
+    private final List<Hobby> hobbies;
 
     public MultiSelectionAdapter(Context context, List<Hobby> hobbies) {
         this.context = context;
@@ -44,7 +44,9 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
     }
 
     @Override
-    public int getItemCount() { return hobbies.size(); }
+    public int getItemCount() {
+        return hobbies.size();
+    }
 
     class MultiViewHolder extends RecyclerView.ViewHolder {
 
@@ -70,7 +72,7 @@ public class MultiSelectionAdapter extends RecyclerView.Adapter<MultiSelectionAd
     // Get selected when button is clicked
     public List<Hobby> getSelected() {
         List<Hobby> selected = new ArrayList<>();
-        for (int i = 0; i < hobbies.size(); i++){
+        for (int i = 0; i < hobbies.size(); i++) {
             if (hobbies.get(i).getChecked()) {
                 selected.add(hobbies.get(i));
             }

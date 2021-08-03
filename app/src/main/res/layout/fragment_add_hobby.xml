@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textColor="@color/light_black"
-        android:textSize="28dp"/>
+        android:textSize="28dp" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,7 +29,7 @@
         app:tint="@color/white"
         android:layout_margin="16dp"
         tools:ignore="RtlHardcoded"
-        android:backgroundTint="@color/light_blue"/>
+        android:backgroundTint="@color/light_blue" />
 
     <Button
         android:id="@+id/btnCreateNewHobby"
@@ -43,14 +43,14 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/light_blue"
         android:text="@string/new_hobby"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHobbySelector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tvTitle"
-        android:layout_above="@+id/btnCreateNewHobby"/>
+        android:layout_above="@+id/btnCreateNewHobby" />
 
 
 </RelativeLayout>

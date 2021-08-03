@@ -28,7 +28,7 @@
             app:textPaddingBottom="2dp"
             app:textPaddingLeft="2dp"
             app:textPaddingRight="2dp"
-            app:textPaddingTop="2dp"/>
+            app:textPaddingTop="2dp" />
 
         <TextView
             android:id="@+id/tvDescription"
@@ -52,7 +52,7 @@
             android:textSize="20sp"
             android:textColor="@color/light_black"
             android:text="Test Hobby name"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivHobbyImage"
@@ -61,8 +61,7 @@
             android:layout_alignParentRight="true"
             tools:src="@tools:sample/avatars"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_marginTop="10dp" />
 
         <ImageView
             android:id="@+id/ivRemove"
@@ -71,7 +70,7 @@
             android:src="@drawable/outline_remove_white_24dp"
             app:tint="@color/red"
             android:clickable="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 

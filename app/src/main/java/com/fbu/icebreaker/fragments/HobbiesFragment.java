@@ -3,6 +3,11 @@ package com.fbu.icebreaker.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,14 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.R;
+import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseQuery;
@@ -32,9 +31,9 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  */
 public class HobbiesFragment extends Fragment {
-    
+
     private static final String TAG = "HobbiesFragment";
-    
+
     private HobbiesAdapter adapter;
 
     private List<Hobby> allHobbies;
@@ -53,7 +52,7 @@ public class HobbiesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         final RecyclerView rvHobbies = view.findViewById(R.id.rvHobbies);
         final FloatingActionButton btnAddHobby = view.findViewById(R.id.btnAddHobby);
 
@@ -61,7 +60,7 @@ public class HobbiesFragment extends Fragment {
             Log.i(TAG, "Click at post position: " + position);
 
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
 
                         allHobbies.get(position).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
@@ -87,14 +86,14 @@ public class HobbiesFragment extends Fragment {
                     .setNegativeButton(R.string.Cancel, dialogClickListener)
                     .show();
         };
-        
+
         // Initialize the array
         allHobbies = new ArrayList<>();
         adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
-        
+
         // Set the adapter
         rvHobbies.setAdapter(adapter);
-        
+
         // Create layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvHobbies.setLayoutManager(linearLayoutManager);
@@ -116,7 +115,7 @@ public class HobbiesFragment extends Fragment {
 
     private void queryHobbies() {
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
         query.findInBackground((hobbies, e) -> {
@@ -135,7 +134,7 @@ public class HobbiesFragment extends Fragment {
 
     private void queryHobbiesUpdate() {
         // Specify data to query
-        ParseQuery<Hobby> query =  ParseQuery.getQuery(Hobby.class);
+        ParseQuery<Hobby> query = ParseQuery.getQuery(Hobby.class);
         query.include("usersWithHobby");
         query.whereEqualTo("usersWithHobby", ParseUser.getCurrentUser());
         query.findInBackground((hobbies, e) -> {

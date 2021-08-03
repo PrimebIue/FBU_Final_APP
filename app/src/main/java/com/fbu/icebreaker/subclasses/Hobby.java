@@ -19,18 +19,43 @@ public class Hobby extends ParseObject implements Parcelable {
 
     public boolean isChecked = false;
 
-    public String getName() { return getString(KEY_NAME); }
-    public void setName(String name) { put(KEY_NAME, name); }
+    public String getName() {
+        return getString(KEY_NAME);
+    }
 
-    public boolean getChecked() { return isChecked; }
-    public void setChecked(boolean checked) { isChecked = checked; }
+    public void setName(String name) {
+        put(KEY_NAME, name);
+    }
 
-    public String getImage() { return Objects.requireNonNull(getParseFile("hobbyImage")).getUrl(); }
-    public void setImage(ParseFile file) { put(KEY_IMAGE, file); }
+    public boolean getChecked() {
+        return isChecked;
+    }
 
-    public String getDescription() { return getString(KEY_DESCRIPTION); }
-    public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
-    public List<String> getTags() { return getList(KEY_TAGS); }
-    public void setTags(List<String> tags) { put(KEY_TAGS, tags); }
+    public String getImage() {
+        return Objects.requireNonNull(getParseFile("hobbyImage")).getUrl();
+    }
+
+    public void setImage(ParseFile file) {
+        put(KEY_IMAGE, file);
+    }
+
+    public String getDescription() {
+        return getString(KEY_DESCRIPTION);
+    }
+
+    public void setDescription(String description) {
+        put(KEY_DESCRIPTION, description);
+    }
+
+    public List<String> getTags() {
+        return getList(KEY_TAGS);
+    }
+
+    public void setTags(List<String> tags) {
+        put(KEY_TAGS, tags);
+    }
 }

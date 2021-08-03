@@ -14,11 +14,11 @@
         android:textSize="32dp"
         android:textStyle="bold"
         android:textColor="@color/light_black"
-        android:text="@string/similar_hobbies_per_tag"/>
+        android:text="@string/similar_hobbies_per_tag" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHobbyPairings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvTitle"/>
+        android:layout_below="@id/tvTitle" />
 </RelativeLayout>

@@ -1,10 +1,10 @@
 package com.fbu.icebreaker;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
 
 import com.fbu.icebreaker.adapters.ViewPagerAdapter;
 

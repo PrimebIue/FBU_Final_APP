@@ -14,8 +14,7 @@
         android:text="@string/create_new_hobby"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textSize="24dp"
-        />
+        android:textSize="24dp" />
 
     <EditText
         android:id="@+id/etHobbyName"
@@ -39,7 +38,7 @@
         android:text="@string/selected_tags_max_4"
         android:textSize="12dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp" />
 
 
     <me.kaede.tagview.TagView
@@ -49,8 +48,7 @@
         android:layout_below="@+id/tvTagsSelectedText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:layout_marginEnd="40dp" />
 
     <View
         android:id="@+id/vSeparator"
@@ -59,7 +57,7 @@
         android:background="@color/light_gray"
         android:layout_below="@id/tvSelectedTags"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginEnd="40dp" />
 
     <TextView
         android:id="@+id/tvSelectTagsText"
@@ -84,8 +82,7 @@
         android:layout_below="@id/tvSelectTagsText"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_marginTop="5dp" />
 
     <me.kaede.tagview.TagView
         android:id="@+id/tvTagsToSelect2"
@@ -99,8 +96,8 @@
         app:textPaddingTop="3dp"
         android:layout_below="@id/tvTagsToSelect"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:layout_marginEnd="40dp" />
+
     <me.kaede.tagview.TagView
         android:id="@+id/tvTagsToSelect3"
         android:layout_width="match_parent"
@@ -113,8 +110,8 @@
         app:textPaddingTop="3dp"
         android:layout_below="@id/tvTagsToSelect2"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:layout_marginEnd="40dp" />
+
     <me.kaede.tagview.TagView
         android:id="@+id/tvTagsToSelect4"
         android:layout_width="match_parent"
@@ -127,8 +124,7 @@
         app:textPaddingTop="3dp"
         android:layout_below="@id/tvTagsToSelect3"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:layout_marginEnd="40dp" />
 
     <Button
         android:id="@+id/btnCancelHobbyAdd"
@@ -148,8 +144,7 @@
         android:backgroundTint="@color/light_blue"
         android:layout_alignParentRight="true"
         android:text="@string/add"
-        android:layout_marginEnd="40dp"/>
-
+        android:layout_marginEnd="40dp" />
 
 
 </RelativeLayout>

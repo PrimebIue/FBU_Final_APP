@@ -15,9 +15,7 @@
         android:textColor="@color/white"
         android:text="Test Hobby name"
         android:layout_margin="5dp"
-        android:background="@drawable/round_text_background"/>
-
-
+        android:background="@drawable/round_text_background" />
 
 
 </RelativeLayout>
