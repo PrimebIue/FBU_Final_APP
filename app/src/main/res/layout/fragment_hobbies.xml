@@ -7,11 +7,20 @@
     tools:context=".fragments.HobbiesFragment"
     android:background="@color/off_white">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHobbies"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHobbies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddHobby"

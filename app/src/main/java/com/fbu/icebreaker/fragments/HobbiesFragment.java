@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
@@ -37,6 +38,8 @@ public class HobbiesFragment extends Fragment {
     private HobbiesAdapter adapter;
 
     private List<Hobby> allHobbies;
+
+    private SwipeRefreshLayout swipeContainer;
 
     public HobbiesFragment() {
         // Required empty public constructor
@@ -90,6 +93,23 @@ public class HobbiesFragment extends Fragment {
         // Initialize the array
         allHobbies = new ArrayList<>();
         adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                queryHobbiesUpdate();
+            }
+        });
+
+        // Refreshing colors
+        swipeContainer.setColorSchemeResources(
+                android.R.color.holo_purple,
+                android.R.color.holo_red_light,
+                android.R.color.holo_orange_light);
 
         // Set the adapter
         rvHobbies.setAdapter(adapter);
@@ -151,6 +171,8 @@ public class HobbiesFragment extends Fragment {
             }
             Log.i(TAG, "Gets here" + hobbies);
             allHobbies.addAll(hobbies);
+
+            swipeContainer.setRefreshing(false);
             adapter.notifyDataSetChanged();
         });
     }
