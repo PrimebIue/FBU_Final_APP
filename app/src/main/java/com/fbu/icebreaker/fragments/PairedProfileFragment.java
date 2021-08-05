@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,7 +82,9 @@ public class PairedProfileFragment extends Fragment {
         userHobbies = getArguments().getParcelableArrayList("userHobbies");
         qrHobbies = getArguments().getParcelableArrayList("qrHobbies");
 
-        adapter = new HobbiesAdapter(getContext(), allHobbies, null);
+        HobbiesAdapter.OnClickListener onClickListener = position -> Toast.makeText(getContext(), R.string.sorry_delete_hobby_screen, Toast.LENGTH_SHORT).show();
+
+        adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
         rvPairedHobbies.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
