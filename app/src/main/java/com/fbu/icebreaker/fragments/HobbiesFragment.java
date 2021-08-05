@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HobbiesFragment extends Fragment {
+public class HobbiesFragment extends DialogFragment {
 
     private static final String TAG = "HobbiesFragment";
 
@@ -98,12 +99,7 @@ public class HobbiesFragment extends Fragment {
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
         // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                queryHobbiesUpdate();
-            }
-        });
+        swipeContainer.setOnRefreshListener(() -> queryHobbiesUpdate());
 
         // Refreshing colors
         swipeContainer.setColorSchemeResources(

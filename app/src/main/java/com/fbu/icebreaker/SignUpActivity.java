@@ -22,7 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
         final Button btnSignUp = findViewById(R.id.btnSignUp);
         final EditText etEmail = findViewById(R.id.etEmail);
         final EditText etPassword = findViewById(R.id.etPassword);
-        final EditText etUsername = findViewById(R.id.etUsername);
+        final EditText etUsername = findViewById(R.id.etUsernameSearch);
 
         btnSignUp.setOnClickListener(v -> {
             // Create Parse user

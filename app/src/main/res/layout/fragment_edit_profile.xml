@@ -25,7 +25,7 @@
         android:backgroundTint="@color/white" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUsernameSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnProfilePhoto"
@@ -40,7 +40,7 @@
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
+        android:layout_below="@+id/etUsernameSearch"
         android:background="@drawable/custom_input"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"

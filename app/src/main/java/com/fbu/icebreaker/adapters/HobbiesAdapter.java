@@ -74,7 +74,6 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.i(TAG, "here");
 
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
             tvDescription = itemView.findViewById(R.id.tvDescription);

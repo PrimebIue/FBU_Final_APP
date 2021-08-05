@@ -48,7 +48,7 @@ public class EditProfileFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
-        etUsername = view.findViewById(R.id.etUsername);
+        etUsername = view.findViewById(R.id.etUsernameSearch);
         etDescription = view.findViewById(R.id.etDescription);
         btnProfilePhoto = view.findViewById(R.id.btnProfilePhoto);
         btnSubmit = view.findViewById(R.id.btnSubmit);

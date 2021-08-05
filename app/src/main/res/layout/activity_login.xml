@@ -82,7 +82,7 @@
         android:layout_toEndOf="@+id/tvOr" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUsernameSearch"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_below="@+id/tvAppDescription"
@@ -99,7 +99,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_below="@+id/etUsername"
+        android:layout_below="@+id/etUsernameSearch"
         android:layout_marginStart="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
@@ -120,8 +120,8 @@
         android:text="@string/log_in"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:layout_alignRight="@+id/etUsername"
-        android:layout_alignLeft="@+id/etUsername" />
+        android:layout_alignRight="@+id/etUsernameSearch"
+        android:layout_alignLeft="@+id/etUsernameSearch" />
 
     <Button
         android:id="@+id/btnRegister"
