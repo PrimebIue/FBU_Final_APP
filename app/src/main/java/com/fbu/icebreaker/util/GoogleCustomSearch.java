@@ -56,6 +56,7 @@ public class GoogleCustomSearch {
         newHobbyTags = tags;
         hobbyName = searchString;
         searchString = searchString.replace(" ", "+");
+        searchString = searchString + "+description";
 
         // Generate link for google image search
 

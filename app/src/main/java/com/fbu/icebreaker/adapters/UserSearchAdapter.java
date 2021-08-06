@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,11 +60,13 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.Vi
 
         private final TextView tvUsername;
         private final ImageView ivUserProfilePicture;
+        private final RelativeLayout rlSearchUser;
 
         public ViewHolder(View view) {
             super(view);
             tvUsername = view.findViewById(R.id.tvUsername);
             ivUserProfilePicture = view.findViewById(R.id.ivUserProfilePicture);
+            rlSearchUser = view.findViewById(R.id.rlSearchUser);
         }
 
         public void bind(ParseUser user) {
@@ -75,7 +78,7 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.Vi
                     .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                     .into(ivUserProfilePicture);
 
-            ivUserProfilePicture.setOnClickListener(v -> clickListener.onUserClicked(getAdapterPosition()));
+            rlSearchUser.setOnClickListener(v -> clickListener.onUserClicked(getAdapterPosition()));
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,28 +84,22 @@ public class SearchUserFragment extends DialogFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvUserSearch.setLayoutManager(linearLayoutManager);
 
-        btnSearchUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserSearchQuery(etUsernameSearch.getText().toString());
-            }
-        });
+        rvUserSearch.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        btnSearchUser.setOnClickListener(v -> UserSearchQuery(etUsernameSearch.getText().toString()));
     }
 
     private void UserSearchQuery(String searchData) {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereMatches("username", "("+searchData+")", "i");
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> objects, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with searching users.", e);
-                }
-                users.clear();
-                users.addAll(objects);
-                Log.i(TAG, "Users: " + objects.toString());
-                adapter.notifyDataSetChanged();
+        query.findInBackground((objects, e) -> {
+            if (e != null) {
+                Log.e(TAG, "Issue with searching users.", e);
             }
+            users.clear();
+            users.addAll(objects);
+            Log.i(TAG, "Users: " + objects.toString());
+            adapter.notifyDataSetChanged();
         });
     }
 }
