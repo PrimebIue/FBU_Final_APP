@@ -2,6 +2,7 @@ package com.fbu.icebreaker;
 
 import android.app.Application;
 
+import com.fbu.icebreaker.subclasses.ConversationStarter;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -15,6 +16,7 @@ public class ParseApplication extends Application {
 
         // Register Parse models here
         ParseObject.registerSubclass(Hobby.class);
+        ParseObject.registerSubclass(ConversationStarter.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
