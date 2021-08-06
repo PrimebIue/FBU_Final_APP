@@ -20,13 +20,20 @@ import java.util.Random;
 
 public class PairedIndividualHobbiesByTagAdapter extends RecyclerView.Adapter<PairedIndividualHobbiesByTagAdapter.ViewHolder> {
 
-    List<Hobby> pairedHobbies;
+    private final List<Hobby> pairedHobbies;
 
-    Context context;
+    private final Context context;
 
-    public PairedIndividualHobbiesByTagAdapter(Context context, List<Hobby> pairedHobbies) {
+    private final OnClickListener clickListener;
+
+    public interface OnClickListener {
+        void onHobbyClicked(int position);
+    }
+
+    public PairedIndividualHobbiesByTagAdapter(Context context, List<Hobby> pairedHobbies, OnClickListener clickListener) {
         this.context = context;
         this.pairedHobbies = pairedHobbies;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -61,6 +68,11 @@ public class PairedIndividualHobbiesByTagAdapter extends RecyclerView.Adapter<Pa
             Random rnd = new Random();
             tvHobbyName.setText(hobby.getName());
             tvHobbyName.getBackground().setTint(Color.argb(255, rnd.nextInt(250), rnd.nextInt(250), rnd.nextInt(250)));
+
+            tvHobbyName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { clickListener.onHobbyClicked(getAdapterPosition()); }
+            });
         }
     }
 }

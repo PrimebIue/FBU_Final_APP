@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,7 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
     private final List<Hobby> hobbies;
 
     public interface OnClickListener {
-        void onRemoveClicked(int position);
+        void onHobbyClicked(int position);
     }
 
     public HobbiesAdapter(Context context, List<Hobby> hobbies, OnClickListener clickListener) {
@@ -62,15 +64,16 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
         return hobbies.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder  implements View.OnCreateContextMenuListener {
 
         private final TextView tvHobbyName;
         private final TextView tvDescription;
 
-        private final ImageView ivRemove;
         private final ImageView ivHobbyImage;
 
         private final TagView tvTags;
+
+        private final RelativeLayout rlHobby;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,10 +81,13 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
             tvHobbyName = itemView.findViewById(R.id.tvHobbyName);
             tvDescription = itemView.findViewById(R.id.tvDescription);
 
-            ivRemove = itemView.findViewById(R.id.ivRemove);
             ivHobbyImage = itemView.findViewById(R.id.ivHobbyImage);
 
             tvTags = itemView.findViewById(R.id.tvTag);
+
+            rlHobby = itemView.findViewById(R.id.rlHobby);
+
+            rlHobby.setOnCreateContextMenuListener(this);
         }
 
         public void bind(Hobby hobby) {
@@ -107,7 +113,14 @@ public class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.ViewHold
                     .transform(new RoundedCornersTransformation(radius, margin))
                     .into(ivHobbyImage);
 
-            ivRemove.setOnClickListener(v -> clickListener.onRemoveClicked(getAdapterPosition()));
+            rlHobby.setOnClickListener(v -> clickListener.onHobbyClicked(getAdapterPosition()));
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.add(this.getAdapterPosition(), 121, 0, "Delete this item");
         }
     }
+
+
 }

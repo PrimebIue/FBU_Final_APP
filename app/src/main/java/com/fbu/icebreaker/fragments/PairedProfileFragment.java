@@ -1,7 +1,10 @@
 package com.fbu.icebreaker.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.fbu.icebreaker.HobbyDetailsActivity;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.subclasses.Hobby;
@@ -82,9 +86,18 @@ public class PairedProfileFragment extends Fragment {
         userHobbies = getArguments().getParcelableArrayList("userHobbies");
         qrHobbies = getArguments().getParcelableArrayList("qrHobbies");
 
-        HobbiesAdapter.OnClickListener onClickListener = position -> Toast.makeText(getContext(), R.string.sorry_delete_hobby_screen, Toast.LENGTH_SHORT).show();
+        allHobbies.addAll(hobbyMethods.getEqualHobbies(qrHobbies, userHobbies));
 
-        adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
+        HobbiesAdapter.OnClickListener clickListener = new HobbiesAdapter.OnClickListener() {
+            @Override
+            public void onHobbyClicked(int position) {
+                Intent i = new Intent(getContext(), HobbyDetailsActivity.class);
+                i.putExtra("hobby", allHobbies.get(position));
+                startActivity(i);
+            }
+        };
+
+        adapter = new HobbiesAdapter(getContext(), allHobbies, clickListener);
         rvPairedHobbies.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPairedHobbies.setLayoutManager(linearLayoutManager);
@@ -101,8 +114,16 @@ public class PairedProfileFragment extends Fragment {
                 .load(Objects.requireNonNull(user.getParseFile("profilePicture")).getUrl())
                 .into(ivProfilePicture);
 
-        allHobbies.addAll(hobbyMethods.getEqualHobbies(qrHobbies, userHobbies));
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull @NotNull MenuItem item) {
+
+        if (item.getItemId() == 121) {
+            Toast.makeText(getContext(), R.string.removing_hobby_error, Toast.LENGTH_SHORT).show();
+        }
+        return super.onContextItemSelected(item);
     }
 }

@@ -69,4 +69,6 @@
     <string name="search_user">Search User</string>
     <string name="scan_a_user_code_to_break_the_ice">Scan a user code to break the ice!</string>
     <string name="sorry_delete_hobby_screen">Sorry, you can\'t delete hobbies in this screen.</string>
+    <string name="add_hobby">Add Hobby</string>
+    <string name="add_hobby_to_profile">Add hobby to profile</string>
 </resources>

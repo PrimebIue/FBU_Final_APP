@@ -2,9 +2,11 @@ package com.fbu.icebreaker.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,12 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fbu.icebreaker.HobbyDetailsActivity;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.adapters.HobbiesAdapter;
 import com.fbu.icebreaker.subclasses.Hobby;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,40 +65,18 @@ public class HobbiesFragment extends DialogFragment {
         final RecyclerView rvHobbies = view.findViewById(R.id.rvHobbies);
         final FloatingActionButton btnAddHobby = view.findViewById(R.id.btnAddHobby);
 
-        HobbiesAdapter.OnClickListener onClickListener = position -> {
-            Log.i(TAG, "Click at post position: " + position);
-
-            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-
-                        allHobbies.get(position).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
-                        allHobbies.get(position).saveInBackground(e -> {
-                            if (e != null) {
-                                Log.e(TAG, "Error while removing hobby", e);
-                                Toast.makeText(getContext(), getString(R.string.removing_hobby_error), Toast.LENGTH_SHORT).show();
-                            }
-                            Log.i(TAG, "Hobby removal successful");
-                        });
-
-                        queryHobbiesUpdate();
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // do nothing
-                        break;
-                }
-            };
-
-            AlertDialog.Builder ab = new AlertDialog.Builder(getContext());
-            ab.setMessage(getString(R.string.remove_hobby_question))
-                    .setPositiveButton(R.string.remove, dialogClickListener)
-                    .setNegativeButton(R.string.Cancel, dialogClickListener)
-                    .show();
+        HobbiesAdapter.OnClickListener clickListener = new HobbiesAdapter.OnClickListener() {
+            @Override
+            public void onHobbyClicked(int position) {
+                Intent i = new Intent(getContext(), HobbyDetailsActivity.class);
+                i.putExtra("hobby", allHobbies.get(position));
+                startActivity(i);
+            }
         };
 
         // Initialize the array
         allHobbies = new ArrayList<>();
-        adapter = new HobbiesAdapter(getContext(), allHobbies, onClickListener);
+        adapter = new HobbiesAdapter(getContext(), allHobbies, clickListener);
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
@@ -171,5 +154,23 @@ public class HobbiesFragment extends DialogFragment {
             swipeContainer.setRefreshing(false);
             adapter.notifyDataSetChanged();
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull @NotNull MenuItem item) {
+
+        if (item.getItemId() == 121) {
+            allHobbies.get(item.getGroupId()).getRelation("usersWithHobby").remove(ParseUser.getCurrentUser());
+            allHobbies.get(item.getGroupId()).saveInBackground(e -> {
+                if (e != null) {
+                    Log.e(TAG, "Error while removing hobby", e);
+                    Toast.makeText(getContext(), getString(R.string.removing_hobby_error), Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Hobby removal successful");
+                queryHobbiesUpdate();
+            });
+
+        }
+        return super.onContextItemSelected(item);
     }
 }

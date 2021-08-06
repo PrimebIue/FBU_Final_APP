@@ -1,6 +1,7 @@
 package com.fbu.icebreaker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fbu.icebreaker.HobbyDetailsActivity;
 import com.fbu.icebreaker.R;
 import com.fbu.icebreaker.subclasses.PairingsByTag;
 
@@ -64,7 +66,17 @@ public class HobbyPairingAdapter extends RecyclerView.Adapter<HobbyPairingAdapte
         public void bind(PairingsByTag pairingsByTag) {
 
             tvPairTag.setText(pairingsByTag.getPairedTag());
-            adapter = new PairedIndividualHobbiesByTagAdapter(context, pairingsByTag.getPairedHobbies());
+
+            PairedIndividualHobbiesByTagAdapter.OnClickListener clickListener = new PairedIndividualHobbiesByTagAdapter.OnClickListener() {
+                @Override
+                public void onHobbyClicked(int position) {
+                    Intent i = new Intent(context, HobbyDetailsActivity.class);
+                    i.putExtra("hobby", pairingsByTag.getPairedHobbies().get(position));
+                    context.startActivity(i);
+                }
+            };
+
+            adapter = new PairedIndividualHobbiesByTagAdapter(context, pairingsByTag.getPairedHobbies(), clickListener);
 
             RecyclerView.OnItemTouchListener mScrollTouchListener = new RecyclerView.OnItemTouchListener() {
                 @Override
