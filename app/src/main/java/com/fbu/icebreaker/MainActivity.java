@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.icebreaker_logo_cropped);
+
         final BottomNavigationView bottomNavigationView;
 
         final FragmentManager fragmentManager = getSupportFragmentManager();

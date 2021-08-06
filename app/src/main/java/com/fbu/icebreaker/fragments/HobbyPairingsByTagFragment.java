@@ -40,8 +40,6 @@ public class HobbyPairingsByTagFragment extends Fragment {
 
     private RecyclerView rvHobbyPairings;
 
-    private Set<Hobby> setAlreadyPairedHobbies;
-
     public HobbyPairingsByTagFragment() {
         // Required empty public constructor
     }
@@ -65,8 +63,6 @@ public class HobbyPairingsByTagFragment extends Fragment {
         userHobbies = new ArrayList<>();
         qrHobbies = new ArrayList<>();
         pairingsByTag = new ArrayList<>();
-
-        setAlreadyPairedHobbies = new HashSet<>();
 
         adapter = new HobbyPairingAdapter(getContext(), pairingsByTag);
         rvHobbyPairings.setAdapter(adapter);

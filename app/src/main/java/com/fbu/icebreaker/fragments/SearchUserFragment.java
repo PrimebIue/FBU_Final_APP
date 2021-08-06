@@ -23,6 +23,7 @@ import com.fbu.icebreaker.UserPairingActivity;
 import com.fbu.icebreaker.adapters.UserSearchAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -69,6 +70,8 @@ public class SearchUserFragment extends DialogFragment {
         etUsernameSearch = view.findViewById(R.id.etUsernameSearch);
         btnSearchUser = view.findViewById(R.id.btnSearchUser);
 
+        InitialUserQuery();
+
         UserSearchAdapter.OnClickListener onClickListener = position -> {
             Intent i = new Intent(getActivity(), UserPairingActivity.class);
             i.putExtra(SCANNED_USER_ID_ID, users.get(position).getObjectId());
@@ -100,6 +103,20 @@ public class SearchUserFragment extends DialogFragment {
             users.addAll(objects);
             Log.i(TAG, "Users: " + objects.toString());
             adapter.notifyDataSetChanged();
+        });
+    }
+
+    private void InitialUserQuery() {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with searching users.", e);
+                }
+                users.addAll(objects);
+                adapter.notifyDataSetChanged();
+            }
         });
     }
 }
