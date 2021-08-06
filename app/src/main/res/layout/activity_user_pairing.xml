@@ -8,10 +8,17 @@
 
     <include layout="@layout/tab_toolbar_layout" />
 
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/viewKonfetti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
-        android:layout_below="@+id/tbTab" />
+        android:layout_below="@+id/tbTab" >
+
+    </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>
